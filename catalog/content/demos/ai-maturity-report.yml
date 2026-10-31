@@ -1,0 +1,73 @@
+# Demo del informe de madurez. TODOS LOS DATOS SON FICTICIOS.
+# Puedes cambiar cifras y textos aquí; la página de la demo se regenera sola.
+service: ai-maturity-assessment
+scale_max: 5
+# Puntuaciones por área (filas) y dimensión (columnas, mismo orden que "dimensions").
+departments:
+  - { id: dir, scores: [3.4, 2.1, 2.6, 2.8, 1.9] }
+  - { id: ops, scores: [2.2, 2.7, 2.9, 2.0, 1.6] }
+  - { id: fin, scores: [2.6, 3.3, 3.1, 2.4, 2.5] }
+  - { id: com, scores: [2.9, 1.8, 2.2, 2.6, 1.4] }
+  - { id: ti,  scores: [2.4, 3.0, 3.6, 2.7, 2.2] }
+target: [4.0, 3.5, 3.5, 3.5, 3.5]
+respondents: 42
+
+es:
+  title: Informe de madurez en IA
+  company: Empresa Demo S.A. (ficticia)
+  disclaimer: Demo con datos ficticios. Muestra el formato del informe que recibes.
+  dimensions: [Estrategia, Datos, Tecnología, Personas, Gobierno]
+  department_names: { dir: Dirección, ops: Operaciones, fin: Finanzas, com: Comercial, ti: Tecnología }
+  respondents_label: personas respondieron
+  overall_label: Madurez global
+  target_label: Objetivo a 12 meses
+  heatmap_title: Puntuación por área y dimensión
+  findings_title: Hallazgos principales
+  findings:
+    - title: El gobierno de IA es la dimensión más baja en todas las áreas
+      text: Nadie aprueba formalmente los casos de uso. Comercial usa herramientas de IA generativa sin registro.
+    - title: Dirección y Operaciones no ven la misma realidad
+      text: Dirección puntúa la estrategia con 3,4; Operaciones con 2,2. Los objetivos no han bajado a los equipos.
+    - title: Finanzas y Tecnología tienen la base de datos más sólida
+      text: Son los candidatos naturales para los primeros casos de uso en producción.
+  roadmap_title: Hoja de ruta de 90 días
+  roadmap:
+    - { when: Días 1-30, what: Inventario de sistemas de IA y política de uso de IA generativa }
+    - { when: Días 31-60, what: Comité de IA y proceso de aprobación de casos de uso }
+    - { when: Días 61-90, what: Primer caso de uso en Finanzas con métricas de seguimiento }
+  agents_title: Cómo se generó este informe
+  agents:
+    - { name: Agente de consolidación, did: Limpió y agrupó las 42 respuestas por área y dimensión }
+    - { name: Agente de contraste, did: Detectó 7 contradicciones entre áreas y las marcó para revisión }
+    - { name: Agente de redacción, did: Redactó el primer borrador de hallazgos y hoja de ruta }
+    - { name: Revisión experta, did: "Validé puntuaciones, reescribí 2 hallazgos y fijé las prioridades" }
+
+en:
+  title: AI maturity report
+  company: Demo Company Ltd. (fictional)
+  disclaimer: Demo with fictional data. It shows the format of the report you receive.
+  dimensions: [Strategy, Data, Technology, People, Governance]
+  department_names: { dir: Leadership, ops: Operations, fin: Finance, com: Sales, ti: IT }
+  respondents_label: people responded
+  overall_label: Overall maturity
+  target_label: 12-month target
+  heatmap_title: Score by department and dimension
+  findings_title: Key findings
+  findings:
+    - title: Governance is the lowest-scoring dimension in every department
+      text: Nobody formally approves use cases. Sales uses generative AI tools with no record.
+    - title: Leadership and Operations see different realities
+      text: Leadership scores strategy at 3.4; Operations at 2.2. Goals have not reached the teams.
+    - title: Finance and IT have the strongest data foundations
+      text: They are the natural candidates for the first production use cases.
+  roadmap_title: 90-day roadmap
+  roadmap:
+    - { when: Days 1-30, what: AI system inventory and a generative AI usage policy }
+    - { when: Days 31-60, what: AI committee and use-case approval process }
+    - { when: Days 61-90, what: First use case in Finance with tracking metrics }
+  agents_title: How this report was produced
+  agents:
+    - { name: Consolidation agent, did: Cleaned and grouped the 42 answers by department and dimension }
+    - { name: Cross-check agent, did: Found 7 contradictions between departments and flagged them for review }
+    - { name: Drafting agent, did: Wrote the first draft of findings and roadmap }
+    - { name: Expert review, did: "I validated scores, rewrote 2 findings and set the priorities" }

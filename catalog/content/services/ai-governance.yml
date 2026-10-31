@@ -1,0 +1,53 @@
+# Ficha de servicio. Edítala a mano cuando quieras.
+order: 3
+phase: govern
+agent: false
+demo:
+
+es:
+  tools: [Reglamento europeo de IA, RGPD, ISO/IEC 42001, Matrices de controles]
+  title: Gobierno de IA
+  tagline: Saber qué sistemas de IA tienes, qué riesgo tienen y qué te exige la ley.
+  problem: >-
+    El Reglamento europeo de IA ya está en vigor y no tienes un inventario de sistemas de IA,
+    ni roles definidos, ni forma de demostrar qué controles aplicas.
+  for_whom: [Compliance, legal y protección de datos, CIO y CDO, Comités de riesgos]
+  steps:
+    - title: Inventario
+      text: Identificamos los sistemas de IA en uso o en desarrollo, incluidos los de proveedores.
+    - title: Clasificación
+      text: Clasifico cada sistema por nivel de riesgo y por tu papel (proveedor, responsable del despliegue).
+    - title: Controles
+      text: Traduzco las obligaciones legales a controles técnicos y organizativos concretos.
+    - title: Modelo de gobierno
+      text: Roles, comités, políticas y el proceso para aprobar nuevos casos de uso.
+  deliverables:
+    - Inventario de sistemas de IA clasificado por riesgo
+    - Mapa obligación legal a control técnico
+    - Políticas y modelo de gobierno
+    - Plan de adecuación priorizado
+  agent_note: ''
+
+en:
+  tools: [EU AI Act, GDPR, ISO/IEC 42001, Control matrices]
+  title: AI governance and the EU AI Act
+  tagline: Know which AI systems you run, how risky they are and what the law requires.
+  problem: >-
+    The EU AI Act is in force and you have no inventory of AI systems, no defined roles and no
+    way to show which controls you apply.
+  for_whom: [Compliance, legal and data protection, CIOs and CDOs, Risk committees]
+  steps:
+    - title: Inventory
+      text: We identify the AI systems in use or in development, including third-party ones.
+    - title: Classification
+      text: I classify each system by risk level and by your role (provider or deployer).
+    - title: Controls
+      text: I translate legal obligations into concrete technical and organizational controls.
+    - title: Governance model
+      text: Roles, committees, policies and the process to approve new use cases.
+  deliverables:
+    - AI system inventory classified by risk
+    - Legal obligation to technical control map
+    - Policies and governance model
+    - Prioritized compliance plan
+  agent_note: ''

@@ -1,0 +1,57 @@
+# Ficha de servicio. Edítala a mano cuando quieras.
+order: 2
+phase: architect
+agent: true
+demo: ai-architecture-design
+
+es:
+  tools: [Agentes de IA, Diagramas C4, Cloud (Azure, AWS, GCP), RAG y LLM]
+  title: Diseño de arquitectura de IA
+  tagline: Una arquitectura que se puede construir, operar y auditar.
+  problem: >-
+    Tu caso de uso de IA funciona en una demo, pero no sabes cómo integrarlo con tus sistemas,
+    tus datos y tus requisitos de seguridad sin rehacerlo todo.
+  for_whom: [Equipos de arquitectura y de datos, CTO y CIO, Responsables de producto con IA]
+  steps:
+    - title: Contexto
+      text: Recojo requisitos, sistemas actuales, datos disponibles y restricciones regulatorias.
+    - title: Opciones con agentes
+      text: Los agentes generan y comparan alternativas de arquitectura con sus costes, riesgos y dependencias.
+    - title: Decisión
+      text: Elegimos una opción juntos y documento por qué se descartaron las demás.
+    - title: Entrega
+      text: Diagramas, decisiones y plan de implantación listos para el equipo que va a construir.
+  deliverables:
+    - Arquitectura objetivo en diagramas (contexto, contenedores, componentes)
+    - Registro de decisiones de arquitectura (ADR)
+    - Matriz de riesgos y controles
+    - Plan de implantación por fases
+  agent_note: >-
+    Los agentes exploran más alternativas de las que un equipo revisaría a mano. La decisión
+    final y su justificación las tomamos personas.
+
+en:
+  tools: [AI agents, C4 diagrams, Cloud (Azure, AWS, GCP), RAG and LLMs]
+  title: AI architecture design
+  tagline: An architecture you can build, run and audit.
+  problem: >-
+    Your AI use case works in a demo, but you do not know how to connect it to your systems,
+    data and security requirements without starting over.
+  for_whom: [Architecture and data teams, CTOs and CIOs, AI product owners]
+  steps:
+    - title: Context
+      text: I gather requirements, current systems, available data and regulatory constraints.
+    - title: Agent-generated options
+      text: Agents generate and compare architecture options with their costs, risks and dependencies.
+    - title: Decision
+      text: We choose one option together and I record why the others were discarded.
+    - title: Handover
+      text: Diagrams, decisions and an implementation plan ready for the team that will build it.
+  deliverables:
+    - Target architecture diagrams (context, containers, components)
+    - Architecture decision records (ADR)
+    - Risk and control matrix
+    - Phased implementation plan
+  agent_note: >-
+    Agents explore more alternatives than a team would review by hand. People make the final
+    call and own the reasoning.

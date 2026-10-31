@@ -1,0 +1,90 @@
+/* Diseño del catálogo. Paleta de marca manymetrics.ai: cian, azul marino, gris pizarra y blanco.
+   Los colores se cambian aquí y afectan a todo el sitio. */
+:root {
+  color-scheme: dark;
+  --night: #0B2230;      /* fondo (marino más profundo) */
+  --deep: #0E2A38;       /* azul marino de marca: superficies */
+  --panel: #143546;      /* tarjetas, círculo del ciclo */
+  --line: #1E4254;       /* bordes finos */
+  --line-strong: #4A606A;/* gris pizarra de marca */
+  --accent: #00C1B2;     /* cian de marca */
+  --accent-soft: #0B8C82;
+  --text: #F4F7F6;       /* blanco de marca */
+  --muted: #A3B4BB;
+  --white: #FFFFFF;
+  --paper: #F4F7F6;      /* fondo de los informes demo */
+  --paper-ink: #0E2A38;
+
+  /* Tipografía: Geist (textos y titulares) y Geist Mono (etiquetas y datos), alojadas en el propio sitio. */
+  --f-display: 'Geist Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-body: 'Geist Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-mono: 'Geist Mono Variable', ui-monospace, Menlo, monospace;
+
+  --s-1: clamp(0.78rem, 0.76rem + 0.1vw, 0.84rem);
+  --s0: clamp(1rem, 0.97rem + 0.15vw, 1.07rem);
+  --s1: clamp(1.18rem, 1.1rem + 0.4vw, 1.38rem);
+  --s2: clamp(1.5rem, 1.3rem + 1vw, 2.1rem);
+  --s3: clamp(2rem, 1.5rem + 2.2vw, 3.2rem);
+  --s4: clamp(2.3rem, 1.6rem + 3.4vw, 4.2rem);
+
+  --max: 1200px;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body {
+  margin: 0; background: var(--night); color: var(--text);
+  font-family: var(--f-body); font-size: var(--s0); line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { font-family: var(--f-display); font-weight: 500; letter-spacing: -0.025em; line-height: 1.08; margin: 0; color: var(--white); text-wrap: balance; }
+p { margin: 0; }
+a { color: inherit; }
+ul { margin: 0; padding: 0; list-style: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } }
+
+.wrap { max-width: var(--max); margin-inline: auto; padding-inline: max(20px, 4vw); }
+.kicker { font-size: var(--s-1); font-weight: 600; letter-spacing: 0.32em; text-transform: uppercase; color: var(--accent); }
+.mono { font-family: var(--f-mono); font-size: var(--s-1); letter-spacing: 0.06em; }
+.muted { color: var(--muted); }
+.rule { width: 160px; height: 1px; background: var(--accent); border: 0; margin: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Botones con el borde dorado de la portada */
+.btn {
+  display: inline-flex; align-items: center; gap: .6em; min-height: 46px; padding: .7em 1.4em;
+  border: 1px solid var(--accent-soft); border-radius: 4px; background: var(--deep);
+  color: var(--accent); font-weight: 600; font-size: var(--s-1); letter-spacing: .16em; text-transform: uppercase;
+  text-decoration: none; transition: background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+}
+.btn:hover { border-color: var(--accent); background: var(--panel); }
+.btn.solid { background: var(--accent); color: var(--night); border-color: var(--accent); }
+.btn.solid:hover { background: #2ED6C8; }
+.chip { display: inline-block; padding: .3em .8em; border: 1px solid var(--line-strong); border-radius: 4px; font-size: var(--s-1); color: var(--muted); }
+
+/* Cabecera */
+.site-header { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--night) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 68px; }
+.brand { display: flex; align-items: center; gap: .8rem; text-decoration: none; }
+.brand-mark { width: 34px; height: 34px; }
+.brand-name { font-weight: 600; letter-spacing: .08em; text-transform: uppercase; font-size: .86rem; color: var(--white); }
+.brand-sub { display: block; font-size: .74rem; letter-spacing: .04em; text-transform: none; color: var(--muted); font-weight: 400; }
+.nav { display: flex; align-items: center; gap: 1.4rem; font-size: .9rem; }
+.nav a { text-decoration: none; color: var(--muted); }
+.nav a:hover { color: var(--white); }
+.nav .lang { font-family: var(--f-mono); font-size: .78rem; border: 1px solid var(--line-strong); padding: .35em .7em; border-radius: 4px; }
+@media (max-width: 640px) { .nav .hide-sm { display: none; } .brand-sub { display: none; } }
+
+/* Pie */
+.site-footer { border-top: 1px solid var(--line); padding-block: 2.5rem; margin-top: 6rem; font-size: .9rem; color: var(--muted); }
+.site-footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
+.site-footer a { color: var(--muted); text-decoration: none; }
+.site-footer a:hover { color: var(--accent); }
+.site-footer ul { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+
+/* Aparición suave al hacer scroll */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+.no-js .reveal { opacity: 1; transform: none; }

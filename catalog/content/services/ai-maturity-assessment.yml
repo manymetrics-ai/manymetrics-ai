@@ -1,0 +1,59 @@
+# Ficha de servicio. Edítala a mano cuando quieras.
+# order: posición en el catálogo. phase: assess | architect | govern | scale
+# demo: id de la demo en content/demos (déjalo vacío si no hay demo).
+order: 1
+phase: assess
+agent: true
+demo: ai-maturity-report
+
+es:
+  tools: [Cuestionario online, Agentes de IA, Python, Informe web y PDF]
+  title: Evaluación de madurez en IA
+  tagline: Dónde está tu organización hoy y qué hacer primero.
+  problem: >-
+    Tienes iniciativas de IA repartidas por áreas, pero nadie puede decir con datos en qué punto
+    está la organización ni por dónde empezar.
+  for_whom: [Dirección general y comités de transformación, CIO, CDO y CAIO, Responsables de innovación]
+  steps:
+    - title: Cuestionario
+      text: Las personas clave responden un cuestionario por dimensiones (estrategia, datos, tecnología, personas, gobierno).
+    - title: Análisis con agentes
+      text: Un sistema de agentes cruza las respuestas, detecta incoherencias entre áreas y puntúa cada dimensión.
+    - title: Revisión experta
+      text: Reviso y corrijo el análisis de los agentes antes de que llegue a tus manos.
+    - title: Informe y sesión
+      text: Entrego el informe y lo presentamos juntos al equipo directivo.
+  deliverables:
+    - Puntuación de madurez por dimensión y por área
+    - Mapa de brechas con prioridades
+    - Hoja de ruta de 90 días con las primeras acciones
+    - Informe ejecutivo para el comité de dirección
+  agent_note: >-
+    Los agentes hacen el trabajo repetitivo (consolidar respuestas, comparar áreas, redactar el
+    primer borrador). Las conclusiones las firmo yo.
+
+en:
+  tools: [Online questionnaire, AI agents, Python, Web and PDF report]
+  title: AI maturity assessment
+  tagline: Where your organization stands today and what to do first.
+  problem: >-
+    You have AI initiatives scattered across departments, but nobody can say with data where the
+    organization stands or where to start.
+  for_whom: [CEOs and transformation committees, CIOs, CDOs and CAIOs, Heads of innovation]
+  steps:
+    - title: Questionnaire
+      text: Key people answer a questionnaire covering strategy, data, technology, people and governance.
+    - title: Agent analysis
+      text: A multi-agent system cross-checks answers, flags inconsistencies between departments and scores each dimension.
+    - title: Expert review
+      text: I review and correct the agents' analysis before it reaches you.
+    - title: Report and session
+      text: I deliver the report and we present it together to the leadership team.
+  deliverables:
+    - Maturity score by dimension and department
+    - Gap map with priorities
+    - 90-day roadmap with the first actions
+    - Executive report for the board
+  agent_note: >-
+    Agents do the repetitive work (consolidating answers, comparing departments, drafting).
+    I sign off on the conclusions.

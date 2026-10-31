@@ -1,0 +1,51 @@
+# Ficha de servicio. Edítala a mano cuando quieras.
+order: 6
+phase: scale
+agent: false
+demo:
+
+es:
+  tools: [Programa Executive, Programa Professional, Programa Technical]
+  title: Formación en transformación con IA
+  tagline: Que los equipos sepan usar, diseñar y gobernar la IA en su trabajo.
+  problem: >-
+    Has comprado licencias de herramientas de IA, pero el uso es bajo y cada persona las usa a
+    su manera, sin criterio común.
+  for_whom: [Comités de dirección, Mandos y consultores, Perfiles técnicos]
+  steps:
+    - title: Diagnóstico
+      text: Vemos el punto de partida del grupo y qué tienen que saber hacer al terminar.
+    - title: Programa
+      text: Adapto el itinerario Executive, Professional o Technical a tu sector y tus casos.
+    - title: Sesiones
+      text: Formación práctica con ejercicios sobre problemas reales de tu organización.
+    - title: Seguimiento
+      text: Revisión posterior de lo aplicado y siguientes pasos.
+  deliverables:
+    - Programa formativo adaptado
+    - Materiales y ejercicios
+    - Informe de cierre con recomendaciones
+  agent_note: ''
+
+en:
+  tools: [Executive track, Professional track, Technical track]
+  title: AI transformation training
+  tagline: Teams that know how to use, design and govern AI in their work.
+  problem: >-
+    You bought AI tool licenses, but usage is low and everyone uses them their own way, with no
+    shared criteria.
+  for_whom: [Leadership teams, Managers and consultants, Technical profiles]
+  steps:
+    - title: Diagnosis
+      text: We look at where the group starts and what they need to be able to do at the end.
+    - title: Program
+      text: I adapt the Executive, Professional or Technical track to your sector and cases.
+    - title: Sessions
+      text: Hands-on training with exercises on real problems from your organization.
+    - title: Follow-up
+      text: A later review of what was applied and next steps.
+  deliverables:
+    - Tailored training program
+    - Materials and exercises
+    - Closing report with recommendations
+  agent_note: ''

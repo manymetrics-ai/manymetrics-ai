@@ -1,0 +1,257 @@
+---
+// Página de demo: muestra un entregable de ejemplo con datos ficticios, con aspecto de informe en papel.
+import Base from '../layouts/Base.astro';
+import { ui, serviceUrl, demoUrl, mailto, type Lang } from '../lib/site';
+
+interface Props { lang: Lang; entry: any; service: any; }
+const { lang, entry, service } = Astro.props;
+const t = ui[lang];
+const D = entry.data;
+const L = D[lang];
+const isMaturity = Array.isArray(D.departments);
+const fmt = (n: number) => n.toLocaleString(lang === 'es' ? 'es-ES' : 'en-GB', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+
+// Madurez
+let dimAvg: number[] = [], overall = 0, targetAvg = 0;
+if (isMaturity) {
+  dimAvg = L.dimensions.map((_: string, j: number) => D.departments.reduce((s: number, d: any) => s + d.scores[j], 0) / D.departments.length);
+  overall = dimAvg.reduce((a, b) => a + b, 0) / dimAvg.length;
+  targetAvg = D.target.reduce((a: number, b: number) => a + b, 0) / D.target.length;
+}
+// Escala secuencial de un solo tono (azul noche) para el mapa de calor: 1 claro, 5 oscuro.
+const heat = (v: number) => {
+  const k = Math.max(0, Math.min(1, (v - 1) / ((D.scale_max ?? 5) - 1)));
+  const steps = ['#E3E8EC', '#C3D4D6', '#9AB4B9', '#6E8DA3', '#4A7079', '#2A4C66', '#0E2A38'];
+  return steps[Math.round(k * (steps.length - 1))];
+};
+const inkOn = (v: number) => ((v - 1) / ((D.scale_max ?? 5) - 1) > 0.45 ? '#FFFFFF' : '#0E2A38');
+---
+<Base lang={lang} title={`${L.title} · Demo`} description={L.disclaimer} altHref={demoUrl(t.otherLang, entry.id)}>
+  <div class="wrap top">
+    <a class="back" href={serviceUrl(lang, service.id)}>← {service.data[lang].title}</a>
+    <p class="badge mono">{t.demo_badge}</p>
+  </div>
+
+  <div class="wrap">
+    <article class="paper">
+      <header class="doc-head">
+        <div>
+          <p class="eyebrow">{L.company}</p>
+          <h1>{L.title}</h1>
+          {L.case && <p class="case">{L.case}</p>}
+        </div>
+        <p class="note">{L.disclaimer}</p>
+      </header>
+
+      {isMaturity ? (
+        <>
+          <section class="kpis">
+            <div class="kpi">
+              <span class="lab">{L.overall_label}</span>
+              <span class="val">{fmt(overall)}<small> / {D.scale_max}</small></span>
+            </div>
+            <div class="kpi">
+              <span class="lab">{L.target_label}</span>
+              <span class="val">{fmt(targetAvg)}<small> / {D.scale_max}</small></span>
+            </div>
+            <div class="kpi">
+              <span class="lab">{L.respondents_label}</span>
+              <span class="val">{D.respondents}</span>
+            </div>
+          </section>
+
+          <section class="block">
+            <div class="dims" role="list">
+              {L.dimensions.map((name: string, j: number) => (
+                <div class="dim" role="listitem" title={`${name}: ${fmt(dimAvg[j])} · ${L.target_label}: ${fmt(D.target[j])}`}>
+                  <span class="dn">{name}</span>
+                  <span class="track">
+                    <span class="bar" style={`width:${(dimAvg[j] / D.scale_max) * 100}%`}></span>
+                    <span class="tgt" style={`left:${(D.target[j] / D.scale_max) * 100}%`}></span>
+                  </span>
+                  <span class="dv">{fmt(dimAvg[j])}</span>
+                </div>
+              ))}
+              <p class="legend"><i class="lg-bar"></i>{L.overall_label} <i class="lg-tgt"></i>{L.target_label}</p>
+            </div>
+          </section>
+
+          <section class="block">
+            <h2>{L.heatmap_title}</h2>
+            <div class="table-wrap">
+              <table class="heat">
+                <thead><tr><th></th>{L.dimensions.map((d: string) => <th scope="col">{d}</th>)}</tr></thead>
+                <tbody>
+                  {D.departments.map((dep: any) => (
+                    <tr>
+                      <th scope="row">{L.department_names[dep.id]}</th>
+                      {dep.scores.map((v: number, j: number) => (
+                        <td style={`background:${heat(v)};color:${inkOn(v)}`} title={`${L.department_names[dep.id]} · ${L.dimensions[j]}: ${fmt(v)}`}>{fmt(v)}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="block">
+            <h2>{L.findings_title}</h2>
+            <ol class="findings">{L.findings.map((f: any) => <li><h3>{f.title}</h3><p>{f.text}</p></li>)}</ol>
+          </section>
+
+          <section class="block">
+            <h2>{L.roadmap_title}</h2>
+            <ol class="road">{L.roadmap.map((r: any) => <li><span class="when">{r.when}</span><p>{r.what}</p></li>)}</ol>
+          </section>
+        </>
+      ) : (
+        <>
+          <section class="block">
+            <h2>{L.options_title}</h2>
+            <div class="table-wrap">
+              <table class="opts">
+                <thead><tr><th></th>{L.criteria.map((c: string) => <th scope="col">{c}</th>)}</tr></thead>
+                <tbody>
+                  {D.options.map((o: any) => (
+                    <tr class={o.id === D.chosen ? 'chosen' : ''}>
+                      <th scope="row">{L.option_names[o.id]}{o.id === D.chosen && <span class="pill">{L.chosen_label}</span>}</th>
+                      {o.scores.map((v: number, j: number) => (
+                        <td title={`${L.option_names[o.id]} · ${L.criteria[j]}: ${v}/5`}>
+                          <span class="pips" aria-label={`${v}/5`}>{[1,2,3,4,5].map((k) => <i class={k <= v ? 'on' : ''}></i>)}</span>
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="block">
+            <h2>{L.layers_title}</h2>
+            <div class="layers">
+              {L.layers.map((l: any) => (
+                <div class="layer"><span class="ln">{l.name}</span><ul>{l.items.map((x: string) => <li>{x}</li>)}</ul></div>
+              ))}
+            </div>
+          </section>
+
+          <section class="block two">
+            <div>
+              <h2>{L.adr_title}</h2>
+              <ul class="adrs">{L.adrs.map((a: any) => <li><span class="id">{a.id}</span>{a.text}</li>)}</ul>
+            </div>
+            <div>
+              <h2>{L.risks_title}</h2>
+              <ul class="risks">{L.risks.map((r: any) => (
+                <li><p class="rk"><span class={`lvl ${['Alto','High'].includes(r.level) ? 'hi' : 'md'}`}>{r.level}</span>{r.risk}</p><p class="ctl">→ {r.control}</p></li>
+              ))}</ul>
+            </div>
+          </section>
+        </>
+      )}
+
+      {L.agents && (
+        <section class="block agents">
+          <h2>{L.agents_title}</h2>
+          <ol>{L.agents.map((a: any, i: number) => <li><span class="ix">{i + 1}</span><div><strong>{a.name}</strong><p>{a.did}</p></div></li>)}</ol>
+        </section>
+      )}
+    </article>
+
+    <div class="after">
+      <a class="btn solid" href={mailto(t.subject(service.data[lang].title))}>{t.ask}</a>
+      <a class="btn" href={serviceUrl(lang, service.id)}>{service.data[lang].title}</a>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-block: 2rem 1.4rem; }
+  .back { color: var(--muted); text-decoration: none; font-size: .9rem; }
+  .back:hover { color: var(--accent); }
+  .badge { color: var(--accent); border: 1px solid var(--accent-soft); padding: .3em .8em; border-radius: 4px; }
+
+  .paper { background: var(--paper); color: var(--paper-ink); border-radius: 6px; padding: clamp(1.5rem, 4vw, 3.5rem); box-shadow: 0 30px 80px -40px #000; display: grid; gap: 3rem; }
+  .paper h1, .paper h2, .paper h3 { color: var(--paper-ink); }
+  .doc-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1.5rem; border-bottom: 2px solid var(--paper-ink); padding-bottom: 1.6rem; }
+  .eyebrow { font-family: var(--f-mono); font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: #00756C; }
+  .paper h1 { font-size: var(--s3); margin-top: .4rem; }
+  .case { margin-top: .8rem; max-width: 56ch; color: #4A606A; }
+  .note { font-size: .82rem; color: #5E7480; max-width: 30ch; align-self: end; }
+  .paper h2 { font-family: var(--f-mono); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 1.2rem; color: #00756C; }
+  .block { display: grid; }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+  .kpi { display: grid; gap: .3rem; padding: 1.2rem; background: #fff; border: 1px solid #D6DFDE; border-radius: 4px; }
+  .kpi .lab { font-size: .82rem; color: #5E7480; }
+  .kpi .val { font-family: var(--f-display); font-weight: 500; letter-spacing: -0.03em; font-size: var(--s3); line-height: 1; }
+  .kpi small { font-size: .45em; color: #5E7480; }
+
+  .dims { display: grid; gap: .9rem; }
+  .dim { display: grid; grid-template-columns: 120px 1fr 42px; gap: 1rem; align-items: center; }
+  .dn { font-size: .92rem; }
+  .track { position: relative; height: 14px; background: #E1E8E7; border-radius: 4px; }
+  .bar { position: absolute; inset: 0 auto 0 0; background: #0E2A38; border-radius: 0 4px 4px 0; }
+  .tgt { position: absolute; top: -5px; bottom: -5px; width: 2px; background: #00A396; }
+  .dv { font-family: var(--f-mono); font-size: .9rem; text-align: right; }
+  .legend { display: flex; align-items: center; gap: .5rem; font-size: .8rem; color: #5E7480; margin-top: .3rem; }
+  .lg-bar { display: inline-block; width: 14px; height: 10px; background: #0E2A38; border-radius: 2px; }
+  .lg-tgt { display: inline-block; width: 2px; height: 14px; background: #00A396; margin-left: 1rem; }
+
+  .table-wrap { overflow-x: auto; }
+  table { border-collapse: separate; border-spacing: 2px; width: 100%; min-width: 520px; font-size: .9rem; }
+  th { font-weight: 500; text-align: left; padding: .5rem .7rem; font-size: .84rem; color: #4A606A; }
+  table.heat { table-layout: fixed; }
+  .heat th:first-child { width: 22%; }
+  .heat td { text-align: center; font-family: var(--f-mono); padding: .8rem .4rem; border-radius: 3px; }
+  .opts td { padding: .7rem; text-align: center; }
+  .opts tr.chosen th, .opts tr.chosen td { background: #D5F2EF; }
+  .opts tr th { border-radius: 3px; }
+  .pill { margin-left: .6rem; font-family: var(--f-mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; background: var(--paper-ink); color: var(--paper); padding: .15em .5em; border-radius: 3px; }
+  .pips { display: inline-flex; gap: 3px; }
+  .pips i { width: 9px; height: 9px; border-radius: 50%; border: 1px solid #0E2A38; }
+  .pips i.on { background: #0E2A38; }
+
+  .findings { margin: 0; padding: 0; list-style: none; display: grid; gap: 1rem; counter-reset: f; }
+  .findings li { counter-increment: f; display: grid; gap: .3rem; padding: 1rem 1.2rem 1rem 3.2rem; position: relative; background: #fff; border: 1px solid #D6DFDE; border-radius: 4px; }
+  .findings li::before { content: counter(f); position: absolute; left: 1.1rem; top: .95rem; font-family: var(--f-display); font-size: 1.5rem; color: #00A396; }
+  .findings h3 { font-family: var(--f-body); font-weight: 600; font-size: 1rem; }
+  .findings p { color: #4A606A; font-size: .94rem; }
+
+  .road { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .road li { padding: 1rem 1.2rem 0 0; border-top: 3px solid #0E2A38; display: grid; gap: .4rem; }
+  .road li:nth-child(2) { border-color: #4A7079; } .road li:nth-child(3) { border-color: #9AB4B9; }
+  .when { font-family: var(--f-mono); font-size: .8rem; color: #00756C; }
+
+  .layers { display: grid; gap: 4px; }
+  .layer { display: grid; grid-template-columns: 150px 1fr; align-items: stretch; background: #fff; border: 1px solid #D6DFDE; border-radius: 4px; }
+  .ln { background: #0E2A38; color: #F4F1EA; padding: .9rem 1rem; font-weight: 600; font-size: .86rem; letter-spacing: .04em; border-radius: 3px 0 0 3px; }
+  .layer ul { display: flex; flex-wrap: wrap; gap: .5rem; padding: .7rem 1rem; align-items: center; }
+  .layer li { border: 1px solid #C3D4D6; padding: .25em .7em; border-radius: 3px; font-size: .86rem; }
+  .two { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .adrs, .risks { display: grid; gap: .7rem; }
+  .adrs li { display: grid; grid-template-columns: 70px 1fr; gap: .8rem; font-size: .94rem; }
+  .id { font-family: var(--f-mono); font-size: .8rem; color: #00756C; padding-top: .15em; }
+  .risks li { padding: .8rem 1rem; background: #fff; border: 1px solid #D6DFDE; border-radius: 4px; display: grid; gap: .3rem; font-size: .94rem; }
+  .rk { display: flex; gap: .6rem; align-items: baseline; }
+  .lvl { font-family: var(--f-mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; padding: .1em .5em; border-radius: 3px; border: 1px solid currentColor; white-space: nowrap; }
+  .lvl.hi { color: #B3261E; } .lvl.md { color: #00756C; }
+  .ctl { color: #4A606A; font-size: .88rem; }
+
+  .agents { border-top: 1px dashed #AFC0C2; padding-top: 2rem; }
+  .agents ol { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+  .agents li { display: grid; grid-template-columns: 28px 1fr; gap: .7rem; font-size: .9rem; }
+  .agents p { color: #4A606A; }
+  .ix { width: 26px; height: 26px; border-radius: 50%; border: 1px solid #00A396; color: #00756C; display: grid; place-items: center; font-family: var(--f-mono); font-size: .78rem; }
+  .agents li:last-child .ix { background: #00A396; color: #fff; }
+
+  .after { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
+  @media (max-width: 700px) {
+    .two { grid-template-columns: 1fr; }
+    .dim { grid-template-columns: 90px 1fr 36px; gap: .6rem; }
+    .layer { grid-template-columns: 1fr; }
+    .ln { border-radius: 3px 3px 0 0; }
+  }
+</style>

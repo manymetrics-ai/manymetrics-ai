@@ -1,0 +1,169 @@
+---
+import Base from '../layouts/Base.astro';
+import Cycle from './Cycle.astro';
+import { getCollection } from 'astro:content';
+import { site, ui, phases, serviceUrl, demoUrl, homeUrl, mailto, type Lang } from '../lib/site';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const s = site[lang];
+const t = ui[lang];
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const demos = await getCollection('demos');
+const byPhase = (Object.keys(phases) as (keyof typeof phases)[]).map((p) => ({
+  phase: p, items: services.filter((x) => x.data.phase === p),
+})).filter((g) => g.items.length);
+const withDemo = services.filter((x) => x.data.demo && demos.some((d) => d.id === x.data.demo));
+---
+<Base lang={lang} title={s.kicker} description={s.headline} altHref={homeUrl(t.otherLang)}>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="kicker">{s.kicker}</p>
+        <p class="name">{site.name.toUpperCase()}</p>
+        <hr class="rule" />
+        <h1>{s.headline}</h1>
+        <p class="intro">{s.intro}</p>
+        <ul class="roles">{s.roles.map((r: string) => <li class="btn">{r}</li>)}</ul>
+        <div class="cta">
+          <a class="btn solid" href="#servicios">{s.services_title}</a>
+          <a class="btn" href={mailto(t.subject(site.brand))}>{s.contact_cta}</a>
+        </div>
+      </div>
+      <div class="hero-art"><div class="halo"></div><Cycle lang={lang} /></div>
+    </div>
+  </section>
+
+  <section id="servicios" class="services">
+    <div class="wrap">
+      <header class="sec-head reveal">
+        <p class="kicker">{s.services_title}</p>
+        <p class="sec-intro">{s.services_intro}</p>
+      </header>
+      {byPhase.map((g) => (
+        <div class="phase reveal" id={`fase-${g.phase}`} data-phase={g.phase}>
+          <div class="phase-label">
+            <span class="mono">{t.phase} {phases[g.phase].n}</span>
+            <h2>{phases[g.phase][lang]}</h2>
+          </div>
+          <ul class="cards">
+            {g.items.map((x) => {
+              const d = x.data[lang];
+              return (
+                <li>
+                  <a class="card" href={serviceUrl(lang, x.id)}>
+                    <div class="card-top">
+                      {x.data.agent && <span class="agent">◇ {t.agent}</span>}
+                    </div>
+                    <h3>{d.title}</h3>
+                    <p class="tag">{d.tagline}</p>
+                    <p class="muted prob">{d.problem}</p>
+                    <span class="more">{t.more} →</span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {withDemo.length > 0 && (
+    <section class="demos">
+      <div class="wrap">
+        <header class="sec-head reveal">
+          <p class="kicker">{lang === 'es' ? 'Entregables con agentes' : 'Agent-built deliverables'}</p>
+          <p class="sec-intro">{lang === 'es'
+            ? 'Así son los informes que generan mis agentes y reviso yo. Datos ficticios, formato real.'
+            : 'This is what the reports my agents generate, and I review, look like. Fictional data, real format.'}</p>
+        </header>
+        <ul class="demo-grid">
+          {withDemo.map((x) => (
+            <li class="reveal">
+              <a class="demo-card" href={demoUrl(lang, x.data.demo!)}>
+                <span class="paper-strip" aria-hidden="true">
+                  {Array.from({ length: 20 }).map((_, i) => <i style={`--v:${[.62,.38,.5,.56,.3,.4,.54,.6,.42,.28,.5,.66,.62,.48,.4,.44,.6,.72,.54,.46][i]}`}></i>)}
+                </span>
+                <span class="mono acc">{t.demo_badge}</span>
+                <h3>{x.data[lang].title}</h3>
+                <span class="more">{t.demo} →</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section id="contacto" class="contact">
+    <div class="wrap reveal">
+      <p class="kicker">{s.contact_title}</p>
+      <p class="contact-text">{s.contact_text}</p>
+      <a class="mail" href={mailto(t.subject(site.brand))}>{site.email}</a>
+    </div>
+  </section>
+</Base>
+
+<script is:inline>
+  document.querySelectorAll('.cycle .node').forEach((n) => {
+    const p = n.dataset.phase;
+    const target = document.querySelector(`.phase[data-phase="${p}"]`);
+    n.addEventListener('mouseenter', () => target && target.classList.add('hl'));
+    n.addEventListener('mouseleave', () => target && target.classList.remove('hl'));
+  });
+</script>
+
+<style>
+  .hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 3rem; align-items: center; min-height: min(88vh, 820px); padding-block: 4rem; }
+  .hero-copy { display: grid; gap: 1.5rem; justify-items: start; }
+  .name { font-weight: 600; font-size: var(--s1); letter-spacing: .02em; color: var(--white); }
+  h1 { font-size: clamp(2rem, 1.4rem + 2.4vw, 3.4rem); max-width: 22ch; }
+  .intro { color: var(--muted); max-width: 52ch; font-size: var(--s1); line-height: 1.5; }
+  .roles { display: flex; flex-wrap: wrap; gap: .7rem; }
+  .roles .btn { cursor: default; }
+  .cta { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: .5rem; }
+  .hero-art { position: relative; }
+  .halo { position: absolute; inset: -18% -40% -18% -6%; background: var(--deep); border-radius: 50%; z-index: -1; }
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; min-height: 0; }
+    .hero-art { max-width: 460px; margin-inline: auto; width: 100%; }
+    .halo { inset: -6%; }
+  }
+
+  .sec-head { display: grid; gap: .8rem; margin-bottom: 3rem; max-width: 60ch; }
+  .sec-intro { font-family: var(--f-display); font-weight: 400; letter-spacing: -0.015em; font-size: var(--s2); color: var(--white); line-height: 1.25; }
+  .services { padding-block: 6rem 2rem; }
+  .phase { display: grid; grid-template-columns: 220px 1fr; gap: 2rem; padding-block: 2.2rem; border-top: 1px solid var(--line); transition: background .3s var(--ease); }
+  .phase.hl { background: linear-gradient(90deg, var(--deep), transparent); }
+  .phase-label { display: grid; gap: .4rem; align-content: start; }
+  .phase-label .mono { color: var(--accent); }
+  .phase-label h2 { font-size: var(--s3); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+  .card { display: grid; gap: .6rem; height: 100%; padding: 1.5rem; background: var(--deep); border: 1px solid var(--line); border-radius: 6px; text-decoration: none; transition: border-color .25s var(--ease), transform .25s var(--ease); align-content: start; }
+  .card:hover { border-color: var(--accent-soft); transform: translateY(-2px); }
+  .card-top { min-height: 1.4em; }
+  .card h3 { font-size: var(--s2); }
+  .card .tag { color: var(--text); }
+  .card .prob { font-size: .9rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; max-width: 62ch; }
+  .agent { font-family: var(--f-mono); font-size: .74rem; letter-spacing: .08em; color: var(--accent); text-transform: uppercase; }
+  .more { margin-top: auto; padding-top: .6rem; color: var(--accent); font-size: .86rem; font-weight: 600; letter-spacing: .06em; }
+  @media (max-width: 760px) { .phase { grid-template-columns: 1fr; gap: 1rem; } }
+
+  .demos { padding-block: 5rem 2rem; }
+  .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
+  .demo-card { display: grid; gap: .8rem; padding: 1.6rem; border: 1px solid var(--line); border-radius: 6px; text-decoration: none; background: var(--deep); transition: border-color .25s var(--ease); }
+  .demo-card:hover { border-color: var(--accent-soft); }
+  .demo-card h3 { font-size: var(--s2); }
+  .acc { color: var(--accent); }
+  .paper-strip { display: flex; align-items: end; gap: 4px; height: 90px; padding: 14px; background: var(--paper); border-radius: 4px; }
+  .paper-strip i { flex: 1; height: calc(var(--v) * 100%); background: var(--paper-ink); opacity: .85; border-radius: 1px; }
+  .paper-strip i:nth-child(5n) { background: var(--accent); }
+
+  .contact { padding-block: 6rem 0; }
+  .contact .wrap { display: grid; gap: 1.4rem; border-top: 1px solid var(--line); padding-top: 4rem; }
+  .contact-text { font-family: var(--f-display); letter-spacing: -0.015em; font-size: var(--s2); color: var(--white); max-width: 30ch; line-height: 1.25; }
+  .mail { font-family: var(--f-display); font-weight: 500; letter-spacing: -0.02em; font-size: clamp(1.4rem, 0.9rem + 2.6vw, 3.2rem); color: var(--accent); text-decoration: none; overflow-wrap: anywhere; border-bottom: 1px solid var(--accent-soft); justify-self: start; }
+  .mail:hover { border-color: var(--accent); }
+</style>

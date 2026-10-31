@@ -1,0 +1,68 @@
+# Demo del diseño de arquitectura. TODOS LOS DATOS SON FICTICIOS.
+service: ai-architecture
+chosen: b
+# Puntuación de cada opción por criterio (1 a 5, más alto es mejor).
+options:
+  - { id: a, scores: [4, 2, 2, 3] }
+  - { id: b, scores: [3, 4, 4, 4] }
+  - { id: c, scores: [2, 5, 3, 2] }
+
+es:
+  title: Diseño de arquitectura de IA
+  company: Aseguradora Demo (ficticia)
+  case: Asistente para tramitadores de siniestros que consulta pólizas y genera borradores de respuesta.
+  disclaimer: Demo con datos ficticios. Muestra el formato del entregable.
+  criteria: [Rapidez de puesta en marcha, Control de datos, Trazabilidad, Coste a 3 años]
+  option_names:
+    a: Asistente SaaS de un proveedor
+    b: RAG propio sobre la nube corporativa
+    c: Modelo propio desplegado en local
+  options_title: Opciones evaluadas por los agentes
+  chosen_label: Elegida
+  layers_title: Arquitectura objetivo
+  layers:
+    - { name: Canal, items: [Escritorio del tramitador, API interna] }
+    - { name: Orquestación, items: [Orquestador de agentes, Filtros de entrada y salida, Registro de trazas] }
+    - { name: Conocimiento, items: [Índice vectorial de pólizas, Catálogo de datos, Control de acceso por rol] }
+    - { name: Modelos, items: [LLM gestionado en la nube de la UE, Modelo de clasificación de siniestros] }
+    - { name: Gobierno, items: [Inventario AI Act, Evaluación periódica de calidad, Revisión humana obligatoria] }
+  adr_title: Decisiones registradas
+  adrs:
+    - { id: ADR-01, text: Los datos de clientes no salen de la región UE }
+    - { id: ADR-02, text: Toda respuesta generada la revisa un tramitador antes de enviarse }
+    - { id: ADR-03, text: Se descarta la opción local por coste de operación del equipo }
+  risks_title: Riesgos principales
+  risks:
+    - { risk: Respuestas con datos de otra póliza, level: Alto, control: Filtro por rol y póliza en la recuperación }
+    - { risk: Clasificación AI Act sin revisar, level: Medio, control: Revisión jurídica antes del piloto }
+    - { risk: Dependencia del proveedor del LLM, level: Medio, control: Capa de abstracción de modelos }
+
+en:
+  title: AI architecture design
+  company: Demo Insurer (fictional)
+  case: An assistant for claims handlers that searches policies and drafts replies.
+  disclaimer: Demo with fictional data. It shows the format of the deliverable.
+  criteria: [Time to launch, Data control, Traceability, 3-year cost]
+  option_names:
+    a: Vendor SaaS assistant
+    b: In-house RAG on the corporate cloud
+    c: Self-hosted model on premises
+  options_title: Options evaluated by the agents
+  chosen_label: Chosen
+  layers_title: Target architecture
+  layers:
+    - { name: Channel, items: [Claims handler desktop, Internal API] }
+    - { name: Orchestration, items: [Agent orchestrator, Input and output filters, Trace log] }
+    - { name: Knowledge, items: [Policy vector index, Data catalog, Role-based access control] }
+    - { name: Models, items: [Managed LLM in an EU cloud region, Claims classification model] }
+    - { name: Governance, items: [AI Act inventory, Periodic quality evaluation, Mandatory human review] }
+  adr_title: Recorded decisions
+  adrs:
+    - { id: ADR-01, text: Customer data never leaves the EU region }
+    - { id: ADR-02, text: A claims handler reviews every generated reply before it is sent }
+    - { id: ADR-03, text: The on-premises option is discarded due to team operating cost }
+  risks_title: Main risks
+  risks:
+    - { risk: Replies containing another policy's data, level: High, control: Role and policy filter at retrieval }
+    - { risk: AI Act classification not reviewed, level: Medium, control: Legal review before the pilot }
+    - { risk: LLM vendor lock-in, level: Medium, control: Model abstraction layer }

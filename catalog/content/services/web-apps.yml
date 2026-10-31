@@ -1,0 +1,51 @@
+# Ficha de servicio. Edítala a mano cuando quieras.
+order: 5
+phase: scale
+agent: false
+demo:
+
+es:
+  tools: [Astro, JavaScript, Python, APIs de LLM]
+  title: Aplicaciones web
+  tagline: Herramientas internas y aplicaciones con IA que tu equipo usa de verdad.
+  problem: >-
+    Tu equipo repite tareas a mano en hojas de cálculo o necesita una herramienta con IA que no
+    existe en el mercado tal como la necesitas.
+  for_whom: [Equipos de negocio con procesos manuales, Pymes y startups, Áreas que quieren probar IA rápido]
+  steps:
+    - title: Alcance
+      text: Definimos la primera versión útil y lo que queda fuera.
+    - title: Prototipo
+      text: Una versión navegable en pocos días para probar con usuarios reales.
+    - title: Construcción
+      text: Desarrollo iterativo con entregas cortas que puedes revisar.
+    - title: Publicación
+      text: Aplicación publicada, código en tu repositorio y documentación para mantenerla.
+  deliverables:
+    - Aplicación web publicada
+    - Código fuente en tu repositorio
+    - Documentación técnica y de uso
+  agent_note: ''
+
+en:
+  tools: [Astro, JavaScript, Python, LLM APIs]
+  title: Web applications
+  tagline: Internal tools and AI-powered apps your team actually uses.
+  problem: >-
+    Your team repeats manual tasks in spreadsheets, or needs an AI tool that does not exist on
+    the market in the shape you need.
+  for_whom: [Business teams with manual processes, SMEs and startups, Teams that want to test AI quickly]
+  steps:
+    - title: Scope
+      text: We define the first useful version and what stays out.
+    - title: Prototype
+      text: A clickable version within days to test with real users.
+    - title: Build
+      text: Iterative development with short deliveries you can review.
+    - title: Launch
+      text: Published app, source code in your repository and docs to maintain it.
+  deliverables:
+    - Published web application
+    - Source code in your repository
+    - Technical and user documentation
+  agent_note: ''

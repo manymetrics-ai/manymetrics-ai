@@ -1,0 +1,57 @@
+---
+// Plantilla común: cabecera, pie, fuentes y metadatos.
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import '../styles/global.css';
+import { site, ui, url, homeUrl, mailto, type Lang } from '../lib/site';
+
+interface Props { lang: Lang; title: string; description: string; altHref: string; }
+const { lang, title, description, altHref } = Astro.props;
+const t = ui[lang];
+const fullTitle = `${title} · ${site.name}`;
+---
+<!doctype html>
+<html lang={lang} class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(url('/img/banner.png'), Astro.site).href} />
+    <meta name="theme-color" content="#0B2230" />
+    <link rel="icon" href={url('/img/mark.svg')} type="image/svg+xml" />
+    <link rel="alternate" hreflang={t.otherLang} href={altHref} />
+    <script is:inline>document.documentElement.classList.remove('no-js');</script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href={homeUrl(lang)}>
+          <img class="brand-mark" src={url('/img/mark.svg')} alt="" width="34" height="34" />
+          <span class="brand-name">{site.name}<span class="brand-sub">{site.brand}</span></span>
+        </a>
+        <nav class="nav" aria-label={lang === 'es' ? 'Principal' : 'Main'}>
+          <a class="hide-sm" href={`${homeUrl(lang)}#servicios`}>{site[lang].services_title}</a>
+          <a class="hide-sm" href={`${homeUrl(lang)}#contacto`}>{site[lang].contact_title.replace(/[¿?]/g, '')}</a>
+          <a class="lang" href={altHref} hreflang={t.otherLang} lang={t.otherLang}>{t.other}</a>
+        </nav>
+      </div>
+    </header>
+    <main><slot /></main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>© {new Date().getFullYear()} {site.name} · {site.brand}. {t.footer}</p>
+        <ul>
+          <li><a href={mailto(t.subject(site.brand))}>{site.email}</a></li>
+          {site.links.map((l: any) => <li><a href={l.url} rel="me noopener" target="_blank">{l.label}</a></li>)}
+        </ul>
+      </div>
+    </footer>
+    <script is:inline>
+      const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>

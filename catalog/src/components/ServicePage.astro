@@ -1,0 +1,112 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, ui, phases, serviceUrl, demoUrl, homeUrl, mailto, type Lang } from '../lib/site';
+
+interface Props { lang: Lang; entry: any; hasDemo: boolean; }
+const { lang, entry, hasDemo } = Astro.props;
+const t = ui[lang];
+const d = entry.data[lang];
+const ph = phases[entry.data.phase as keyof typeof phases];
+---
+<Base lang={lang} title={d.title} description={d.tagline} altHref={serviceUrl(t.otherLang, entry.id)}>
+  <article>
+    <header class="head">
+      <div class="wrap">
+        <a class="back" href={`${homeUrl(lang)}#servicios`}>← {t.back}</a>
+        <p class="kicker">{t.phase} {ph.n} · {ph[lang]}{entry.data.agent && <span> · {t.agent}</span>}</p>
+        <h1>{d.title}</h1>
+        <p class="tagline">{d.tagline}</p>
+        <div class="cta">
+          <a class="btn solid" href={mailto(t.subject(d.title))}>{t.ask}</a>
+          {hasDemo && <a class="btn" href={demoUrl(lang, entry.data.demo)}>{t.demo} →</a>}
+        </div>
+      </div>
+    </header>
+
+    <div class="wrap body">
+      <section class="two reveal">
+        <div>
+          <h2 class="mono acc">{t.problem}</h2>
+          <p class="big">{d.problem}</p>
+        </div>
+        <div>
+          <h2 class="mono acc">{t.for_whom}</h2>
+          <ul class="list">{d.for_whom.map((x: string) => <li>{x}</li>)}</ul>
+        </div>
+      </section>
+
+      <section class="reveal">
+        <h2 class="mono acc">{t.how}</h2>
+        <ol class="steps">
+          {d.steps.map((s: any, i: number) => (
+            <li>
+              <span class="n">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{s.title}</h3>
+              <p class="muted">{s.text}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="two reveal">
+        <div>
+          <h2 class="mono acc">{t.deliverables}</h2>
+          <ul class="list check">{d.deliverables.map((x: string) => <li>{x}</li>)}</ul>
+        </div>
+        <div class="side">
+          {d.agent_note && (
+            <div class="agent-box">
+              <h2 class="mono acc">◇ {t.agent_title}</h2>
+              <p>{d.agent_note}</p>
+            </div>
+          )}
+          {d.tools.length > 0 && (
+            <div>
+              <h2 class="mono acc">{t.tools}</h2>
+              <ul class="chips">{d.tools.map((x: string) => <li class="chip">{x}</li>)}</ul>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section class="final reveal">
+        <p>{site[lang].contact_text}</p>
+        <a class="btn solid" href={mailto(t.subject(d.title))}>{t.ask}</a>
+      </section>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .head { border-bottom: 1px solid var(--line); background: radial-gradient(ellipse 60% 120% at 100% 0%, var(--deep), transparent 70%); }
+  .head .wrap { display: grid; gap: 1.3rem; padding-block: 3rem 4rem; justify-items: start; }
+  .back { color: var(--muted); text-decoration: none; font-size: .9rem; }
+  .back:hover { color: var(--accent); }
+  h1 { font-size: var(--s4); max-width: 20ch; }
+  .tagline { font-size: var(--s1); color: var(--muted); max-width: 50ch; }
+  .cta { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: .4rem; }
+  .body { display: grid; gap: 4.5rem; padding-top: 4rem; }
+  h2.mono { font-family: var(--f-mono); font-size: var(--s-1); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 1rem; }
+  .acc { color: var(--accent); }
+  .two { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; }
+  .big { font-family: var(--f-display); letter-spacing: -0.015em; font-size: var(--s2); color: var(--white); line-height: 1.3; }
+  .list { display: grid; gap: .7rem; }
+  .list li { padding-left: 1.3rem; position: relative; }
+  .list li::before { content: ""; position: absolute; left: 0; top: .72em; width: 8px; height: 1px; background: var(--accent); }
+  .list.check li { padding: .9rem 1rem .9rem 2.4rem; background: var(--deep); border: 1px solid var(--line); border-radius: 4px; }
+  .list.check li::before { left: 1rem; top: 1.45em; width: 10px; }
+  .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0; counter-reset: s; }
+  .steps li { display: grid; gap: .5rem; align-content: start; padding: 1.4rem 1.4rem 1.4rem 0; border-top: 1px solid var(--accent-soft); }
+  .steps li + li { padding-left: 1.4rem; border-left: 1px solid var(--line); }
+  .steps .n { font-family: var(--f-mono); color: var(--accent); font-size: .85rem; }
+  .steps h3 { font-size: var(--s1); }
+  .side { display: grid; gap: 2rem; align-content: start; }
+  .agent-box { padding: 1.4rem; border: 1px solid var(--accent-soft); border-radius: 6px; background: var(--deep); }
+  .chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .final { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 2rem; border: 1px solid var(--line); border-radius: 6px; background: var(--deep); }
+  .final p { font-family: var(--f-display); font-size: var(--s1); color: var(--white); max-width: 46ch; }
+  @media (max-width: 760px) {
+    .two { grid-template-columns: 1fr; gap: 2.5rem; }
+    .steps li, .steps li + li { padding-left: 0; border-left: 0; }
+  }
+</style>

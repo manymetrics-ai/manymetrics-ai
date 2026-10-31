@@ -1,0 +1,49 @@
+# Datos generales del catálogo.
+# Este archivo es tuyo: edítalo a mano cuando quieras. El diseño lo lee de aquí.
+# Para añadir un enlace nuevo (LinkedIn, Calendly...), añade una línea en "links".
+
+name: Giancarlo Peralta Cruzatt
+brand: manymetrics.ai
+email: giancarlo@manymetrics.ai
+
+links:
+  - label: GitHub
+    url: https://github.com/manymetrics-ai
+  # - label: LinkedIn
+  #   url: https://www.linkedin.com/in/...
+  # - label: Agenda una llamada
+  #   url: https://calendly.com/...
+
+es:
+  kicker: Enterprise AI Transformation
+  headline: Pocos logran llevar su IA a producción. Yo diseño y gobierno las que operan
+  intro: >-
+    Estrategia en el comité. Código en producción. Un único responsable. Optimiza tu inversión en IA
+    con mis servicios de consultoría freelance
+  roles: [Arquitecto empresarial de IA, Gobierno de IA, Transformación con IA]
+  services_title: Servicios
+  services_intro: >-
+    Cada servicio corresponde a una fase del ciclo de transformación. Puedes contratar uno suelto
+    o encadenar varios.
+  cycle_title: El ciclo
+  contact_title: ¿Hablamos?
+  contact_text: >-
+    Cuéntame qué tienes entre manos y te respondo con una propuesta de alcance. Sin compromiso.
+  contact_cta: Escríbeme
+
+en:
+  kicker: Enterprise AI Transformation
+  headline: Most AI pilots never scale. I architect and govern the ones that do.
+  intro: >-
+    From boardroom strategy to production-grade systems: one accountable owner, end to end.
+    This catalog lists the services I offer as a freelancer.
+  roles: [Enterprise AI Architect, AI Governance, AI Transformation]
+  services_title: Services
+  services_intro: >-
+    Each service maps to one phase of the transformation cycle. Book one on its own or chain
+    several together.
+  cycle_title: The cycle
+  contact_title: Let's talk
+  contact_text: >-
+    Tell me what you are working on and I will reply with a scoping proposal. No commitment.
+  contact_cta: Email me

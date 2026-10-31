@@ -1,0 +1,21 @@
+{
+  "name": "catalog",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Catálogo de servicios profesionales de Giancarlo Peralta Cruzatt (manymetrics.ai). ES/EN.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@fontsource-variable/geist": "^5.3.0",
+    "@fontsource-variable/geist-mono": "^5.3.0",
+    "astro": "^7.4.4",
+    "yaml": "^2.9.1"
+  }
+}

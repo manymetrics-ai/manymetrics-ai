@@ -1,0 +1,53 @@
+# Ficha de servicio. Edítala a mano cuando quieras.
+order: 4
+phase: scale
+agent: false
+demo:
+
+es:
+  tools: [La herramienta BI que ya uses, Python, SQL, Web a medida]
+  title: Dashboards a medida
+  tagline: Los indicadores que usas para decidir, en una sola pantalla.
+  problem: >-
+    Los datos están en varias herramientas, cada informe se monta a mano en Excel y nadie confía
+    del todo en las cifras.
+  for_whom: [Dirección y mandos intermedios, Equipos de operaciones y finanzas, Oficinas de transformación]
+  steps:
+    - title: Preguntas
+      text: Definimos qué decisiones tiene que apoyar el dashboard y con qué indicadores.
+    - title: Datos
+      text: Conecto las fuentes, documento cada métrica y dejo claro de dónde sale cada número.
+    - title: Diseño
+      text: Prototipo navegable para validar antes de construir.
+    - title: Entrega
+      text: Dashboard en producción, documentado y con formación al equipo.
+  deliverables:
+    - Dashboard en producción
+    - Diccionario de métricas
+    - Modelo de datos documentado
+    - Sesión de formación al equipo
+  agent_note: ''
+
+en:
+  tools: [The BI tool you already use, Python, SQL, Custom web]
+  title: Custom dashboards
+  tagline: The metrics you decide with, on one screen.
+  problem: >-
+    Data lives in several tools, every report is assembled by hand in Excel and nobody fully
+    trusts the numbers.
+  for_whom: [Executives and middle management, Operations and finance teams, Transformation offices]
+  steps:
+    - title: Questions
+      text: We define which decisions the dashboard must support and with which metrics.
+    - title: Data
+      text: I connect the sources, document every metric and make clear where each number comes from.
+    - title: Design
+      text: A clickable prototype to validate before building.
+    - title: Handover
+      text: A documented dashboard in production, plus training for the team.
+  deliverables:
+    - Dashboard in production
+    - Metrics dictionary
+    - Documented data model
+    - Team training session
+  agent_note: ''

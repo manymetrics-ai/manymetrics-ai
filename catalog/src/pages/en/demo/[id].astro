@@ -1,0 +1,13 @@
+---
+import { getCollection } from "astro:content";
+import DemoPage from "../../../components/DemoPage.astro";
+export async function getStaticPaths() {
+  const services = await getCollection("services");
+  return (await getCollection("demos")).map((entry) => ({
+    params: { id: entry.id },
+    props: { entry, service: services.find((s) => s.id === entry.data.service) },
+  }));
+}
+const { entry, service } = Astro.props;
+---
+<DemoPage lang="en" entry={entry} service={service} />

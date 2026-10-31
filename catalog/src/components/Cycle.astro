@@ -1,0 +1,66 @@
+---
+// Diagrama del ciclo de la portada: Evaluar, Diseñar, Gobernar, Escalar.
+// Cada nodo enlaza a su fase en la lista de servicios.
+import { phases, type Lang } from '../lib/site';
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+
+const C = 260, R = 150, NR = 38, GAP = 21;
+const order = ['assess', 'architect', 'govern', 'scale'] as const;
+const ang = [-90, 0, 90, 180];
+const pt = (deg: number, r = R) => {
+  const a = (deg * Math.PI) / 180;
+  return [C + r * Math.cos(a), C + r * Math.sin(a)].map((v) => +v.toFixed(2));
+};
+const arcs = ang.map((a) => {
+  const [x1, y1] = pt(a + GAP), [x2, y2] = pt(a + 90 - GAP);
+  return `M${x1} ${y1} A${R} ${R} 0 0 1 ${x2} ${y2}`;
+});
+const labelPos = [
+  { x: C, y: C - R - NR - 18, anchor: 'middle' },
+  { x: C + R + NR + 14, y: C + 5, anchor: 'start' },
+  { x: C, y: C + R + NR + 30, anchor: 'middle' },
+  { x: C - R - NR - 14, y: C + 5, anchor: 'end' },
+];
+const center = lang === 'es' ? ['Transformación', 'con IA'] : ['AI', 'Transformation'];
+---
+<svg class="cycle" viewBox="0 0 520 520" role="img" aria-labelledby="cycle-title">
+  <title id="cycle-title">{order.map((p) => phases[p][lang]).join(' → ')}</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#00C1B2" />
+    </marker>
+  </defs>
+  <circle cx={C} cy={C} r={R + 82} fill="none" stroke="#1E4254" stroke-dasharray="2 7" />
+  <g class="orbit">
+    {arcs.map((d) => <path d={d} fill="none" stroke="#00C1B2" stroke-width="1.6" marker-end="url(#arrow)" />)}
+  </g>
+  <circle cx={C} cy={C} r="66" fill="#0E2A38" stroke="#00C1B2" stroke-width="1.4" />
+  <text x={C} y={C - 4} text-anchor="middle" class="c1">{center[0]}</text>
+  <text x={C} y={C + 18} text-anchor="middle" class="c2">{center[1]}</text>
+  {order.map((p, i) => {
+    const [x, y] = pt(ang[i]);
+    const l = labelPos[i];
+    return (
+      <a href={`#fase-${p}`} class="node" data-phase={p}>
+        <circle cx={x} cy={y} r={NR} />
+        <text x={x} y={y + 6} text-anchor="middle" class="num">{phases[p].n}</text>
+        <text x={l.x} y={l.y} text-anchor={l.anchor} class="lbl">{phases[p][lang].toUpperCase()}</text>
+      </a>
+    );
+  })}
+</svg>
+
+<style>
+  .cycle { width: 100%; height: auto; overflow: visible; }
+  .orbit { stroke-dasharray: 600; stroke-dashoffset: 600; animation: draw 2.2s var(--ease) .3s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .c1 { font: 600 15px var(--f-display); fill: #00C1B2; }
+  .c2 { font: 600 10px var(--f-body); letter-spacing: .22em; fill: #00C1B2; text-transform: uppercase; }
+  .node circle { fill: #143546; stroke: #00C1B2; stroke-width: 1.4; transition: fill .25s var(--ease); }
+  .node .num { font: 500 15px var(--f-mono); fill: #00C1B2; }
+  .node .lbl { font: 600 13px var(--f-body); letter-spacing: .2em; fill: #F4F7F6; }
+  .node:hover circle, .node:focus-visible circle, .node.on circle { fill: #00C1B2; }
+  .node:hover .num, .node:focus-visible .num, .node.on .num { fill: #0B2230; }
+  .node { outline: none; cursor: pointer; }
+</style>
