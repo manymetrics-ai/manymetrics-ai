@@ -22,6 +22,8 @@ AI Strategy consultant and Enterprise Data Architect with ~11 years of experienc
 
 Freelance services, each tied to one phase of the cycle: **Assess → Architect → Govern → Scale**. Pricing is tailored to scope.
 
+<img src="assets/services-map.svg" width="100%" alt="Services map: where each service sits between strategy and delivery, and across the Assess, Architect, Govern and Scale phases"/>
+
 <p>
   <a href="https://manymetrics-ai.github.io/manymetrics-ai/en/services/ai-maturity-assessment/"><img src="assets/service-ai-maturity-assessment.svg" width="49%" alt="AI maturity assessment"/></a>
   <a href="https://manymetrics-ai.github.io/manymetrics-ai/en/services/ai-architecture/"><img src="assets/service-ai-architecture.svg" width="49%" alt="AI architecture design"/></a>

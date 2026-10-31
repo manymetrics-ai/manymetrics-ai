@@ -1,5 +1,5 @@
 {
-  "_nota": "Datos del README del perfil. Edita aquí y ejecuta: node assets/build.mjs. Los campos con TODO esperan un dato tuyo.",
+  "_nota": "Datos del README del perfil. Edita aquí y ejecuta: node assets/build.mjs. Los campos con TODO esperan un dato tuyo. En services, map.x va de 0 (estrategia) a 1 (implantación) y map.y de 0 (evaluar) a 1 (escalar).",
   "name": "Giancarlo Peralta Cruzatt",
   "kicker": "ENTERPRISE AI TRANSFORMATION",
   "title": "AI Strategist · Enterprise Data Architect",
@@ -64,42 +64,72 @@
       "phase": "assess",
       "agent": true,
       "title": "AI maturity assessment",
-      "line": "Where you stand today and what to do first."
+      "line": "Where you stand today and what to do first.",
+      "map": {
+        "x": 0.18,
+        "y": 0.14
+      },
+      "icon": "assess"
     },
     {
       "id": "ai-architecture",
       "phase": "architect",
       "agent": true,
       "title": "AI architecture design",
-      "line": "An architecture you can build, run and audit."
+      "line": "An architecture you can build, run and audit.",
+      "map": {
+        "x": 0.46,
+        "y": 0.4
+      },
+      "icon": "architect"
     },
     {
       "id": "ai-governance",
       "phase": "govern",
       "agent": false,
       "title": "AI governance",
-      "line": "Inventory, risk classification and EU AI Act controls."
+      "line": "Inventory, risk classification and EU AI Act controls.",
+      "map": {
+        "x": 0.3,
+        "y": 0.66
+      },
+      "icon": "govern"
     },
     {
       "id": "custom-dashboards",
       "phase": "scale",
       "agent": false,
       "title": "Custom dashboards",
-      "line": "The metrics you decide with, on one screen."
+      "line": "The metrics you decide with, on one screen.",
+      "map": {
+        "x": 0.7,
+        "y": 0.8
+      },
+      "icon": "dashboards"
     },
     {
       "id": "web-apps",
       "phase": "scale",
       "agent": false,
       "title": "Web applications",
-      "line": "Internal tools and AI apps your team actually uses."
+      "line": "Internal tools and AI apps your team actually uses.",
+      "map": {
+        "x": 0.93,
+        "y": 0.93
+      },
+      "icon": "apps"
     },
     {
       "id": "ai-training",
       "phase": "scale",
       "agent": false,
       "title": "AI transformation training",
-      "line": "Executive, Professional and Technical tracks."
+      "line": "Executive, Professional and Technical tracks.",
+      "map": {
+        "x": 0.36,
+        "y": 0.88
+      },
+      "icon": "training"
     }
   ]
 }

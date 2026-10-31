@@ -44,17 +44,30 @@ function hero() {
       <text x="${x}" y="${y + 5}" text-anchor="middle" class="m" font-size="14" fill="${C.cyan}">${P.phases[k].n}</text>
       <text x="${lx + dx}" y="${ly + 5}" text-anchor="${anchor}" font-size="13" font-weight="600" letter-spacing="3" fill="${C.white}">${P.phases[k].en.toUpperCase()}</text>`;
   }).join('');
+  // Puntos de la retícula que se encienden y apagan en bucle (posiciones fijas, pseudoaleatorias)
+  let seedN = 7;
+  const rnd = () => ((seedN = (seedN * 9301 + 49297) % 233280) / 233280);
+  const lit = Array.from({ length: 26 }, (_, i) => {
+    const gx = Math.round((W / 2 + 22 + rnd() * (W / 2 - 44)) / 44) * 44;
+    const gy = Math.round((22 + rnd() * (H - 44)) / 44) * 44;
+    if (Math.hypot(gx - cx, gy - cy) < 70) return '';
+    const big = i % 5 === 0, dur = (5 + rnd() * 5).toFixed(1), begin = (rnd() * 6).toFixed(1);
+    return `<circle cx="${gx}" cy="${gy}" r="${big ? 3.2 : 2}" fill="${C.cyan}" opacity="0"><animate attributeName="opacity" values="0;${big ? 0.95 : 0.6};0" dur="${dur}s" begin="${begin}s" repeatCount="indefinite"/></circle>`;
+  }).join('');
   const body = `
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${C.ink}"/><stop offset="1" stop-color="${C.navy}"/></linearGradient>
     <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="${C.cyan}" stop-opacity=".22"/><stop offset="1" stop-color="${C.cyan}" stop-opacity="0"/></radialGradient>
     <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="${C.line}"/></pattern>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" fill="none" stroke="${C.line}" stroke-width=".6"/></pattern>
     <marker id="ar" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="${C.cyan}"/></marker>
     <clipPath id="clip"><rect width="${W}" height="${H}" rx="18"/></clipPath>
   </defs>
   <g clip-path="url(#clip)">
     <rect width="${W}" height="${H}" fill="url(#bg)"/>
     <rect width="${W}" height="${H}" fill="url(#dots)" opacity=".55"/>
+    <rect x="${W / 2}" width="${W / 2}" height="${H}" fill="url(#grid)" opacity=".6"/>
+    ${lit}
     <circle cx="${cx}" cy="${cy}" r="260" fill="url(#glow)"/>
     ${net}
     <circle cx="${cx}" cy="${cy}" r="${R + 90}" fill="none" stroke="${C.line}" stroke-dasharray="2 8"/>
@@ -109,20 +122,84 @@ function focus() {
 }
 
 // ---------- Tarjetas de servicio ----------
+// Ilustraciones de líneas que se dibujan en bucle (una por servicio). Caja de 150 x 96.
+const draw = (d, delay = 0, dur = 2.4, extra = '') => {
+  const len = 420;
+  return `<path d="${d}" fill="none" stroke="${C.cyan}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="${len}" stroke-dashoffset="${len}" ${extra}>
+    <animate attributeName="stroke-dashoffset" values="${len};0;0;${len}" keyTimes="0;.35;.85;1" dur="7s" begin="${delay}s" repeatCount="indefinite"/></path>`;
+};
+const dot = (x, y, delay, r = 3.2) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${C.navy}" stroke="${C.cyan}" stroke-width="1.4" opacity="0">
+  <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;${delay};${delay + 0.05};.85;1" dur="7s" repeatCount="indefinite"/></circle>`;
+const ghost = (d) => `<path d="${d}" fill="none" stroke="${C.line}" stroke-width="1"/>`;
+const ICON = {
+  assess: () => ghost('M8 88H146M8 88V6') + [20, 44, 68, 92, 116].map((x, i) => ghost(`M${x + 10} 88V${88 - [26, 40, 34, 58, 72][i]}`)).join('')
+    + draw('M18 70L42 54L66 60L90 34L118 20L140 12') + dot(18, 70, .08) + dot(42, 54, .13) + dot(66, 60, .18) + dot(90, 34, .23) + dot(118, 20, .28) + dot(140, 12, .33, 4),
+  architect: () => [0, 26, 52].map((o, i) => draw(`M75 ${14 + o}L135 ${30 + o}L75 ${46 + o}L15 ${30 + o}Z`, 0, 2.4, `opacity="${1 - i * 0.25}"`)).join('')
+    + ghost('M15 30V82M135 30V82M75 46V98') + dot(75, 14, .1) + dot(135, 56, .2) + dot(15, 82, .3),
+  govern: () => ghost('M75 4L132 22V50C132 74 106 90 75 96C44 90 18 74 18 50V22Z')
+    + draw('M75 4L132 22V50C132 74 106 90 75 96C44 90 18 74 18 50V22Z') + draw('M50 50L68 66L102 34') + dot(102, 34, .3, 4),
+  dashboards: () => ghost('M6 6H146V92H6ZM6 26H146') + [16, 34, 52].map((x, i) => ghost(`M${x} 84V${84 - [22, 36, 28][i]}`)).join('')
+    + draw('M14 84V62M32 84V48M50 84V56', 0) + draw('M72 74L92 58L110 64L138 36', .2) + dot(138, 36, .32, 3.6) + `<circle cx="16" cy="16" r="3" fill="${C.cyan}"/>`,
+  apps: () => ghost('M6 6H146V92H6ZM6 22H146') + `<circle cx="16" cy="14" r="2.5" fill="${C.slate}"/><circle cx="26" cy="14" r="2.5" fill="${C.slate}"/><circle cx="36" cy="14" r="2.5" fill="${C.cyan}"/>`
+    + draw('M18 34H70V60H18Z') + draw('M82 34H134M82 46H122M82 58H128', .2) + draw('M18 72H134', .4) + dot(134, 72, .32),
+  training: () => ghost('M10 86H144') + draw('M14 80L50 62L84 50L118 30L142 14') + dot(14, 80, .06) + dot(50, 62, .14) + dot(84, 50, .22) + dot(118, 30, .3) + dot(142, 14, .38, 4.4)
+    + `<text x="14" y="98" class="m" font-size="9" fill="${C.muted}">EXEC</text><text x="70" y="98" class="m" font-size="9" fill="${C.muted}">PRO</text><text x="118" y="98" class="m" font-size="9" fill="${C.muted}">TECH</text>`,
+};
 function card(s) {
-  const W = 620, H = 210;
+  const W = 620, H = 250;
   const ph = P.phases[s.phase];
-  const tag = s.agent ? `<g transform="translate(${W - 172} 34)"><rect width="148" height="28" rx="14" fill="none" stroke="${C.cyan}" stroke-opacity=".6"/>${diamond(18, 14, 4.5)}<text x="32" y="19" class="m" font-size="11.5" letter-spacing="1" fill="${C.cyan}">AGENT-POWERED</text></g>` : '';
+  const tag = s.agent ? `<g transform="translate(32 70)">${diamond(5, -4, 4.5)}<text x="16" y="0" class="m" font-size="11.5" letter-spacing="1.4" fill="${C.cyan}">AGENT-POWERED</text></g>` : '';
   const body = `
-  <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${C.panel}"/><stop offset="1" stop-color="${C.ink}"/></linearGradient></defs>
+  <defs><linearGradient id="cg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${C.panel}"/><stop offset="1" stop-color="${C.ink}"/></linearGradient>
+  <pattern id="cgrid" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" fill="${C.line}"/></pattern></defs>
   <rect x=".75" y=".75" width="${W - 1.5}" height="${H - 1.5}" rx="16" fill="url(#cg)" stroke="${C.line}" stroke-width="1.5"/>
+  <rect x="${W - 196}" y="18" width="178" height="118" rx="10" fill="url(#cgrid)" opacity=".8"/>
   <path d="M1 60V17A16 16 0 0 1 17 1H70" fill="none" stroke="${C.cyan}" stroke-width="2"/>
-  <text x="32" y="53" class="m" font-size="13" letter-spacing="2" fill="${C.cyan}">${ph.n} · ${ph.en.toUpperCase()}</text>
+  <text x="32" y="50" class="m" font-size="13" letter-spacing="2" fill="${C.cyan}">${ph.n} · ${ph.en.toUpperCase()}</text>
   ${tag}
-  <text x="32" y="112" font-size="34" font-weight="600" letter-spacing="-1" fill="${C.white}">${esc(s.title)}</text>
-  <text x="32" y="146" font-size="17" fill="${C.muted}">${esc(s.line)}</text>
-  <text x="32" y="184" font-size="14" font-weight="600" letter-spacing=".5" fill="${C.cyan}">View service  →</text>`;
+  <g transform="translate(${W - 182} 28)">${(ICON[s.icon] || (() => ''))()}</g>
+  <text x="32" y="168" font-size="34" font-weight="600" letter-spacing="-1" fill="${C.white}">${esc(s.title)}</text>
+  <text x="32" y="200" font-size="17" fill="${C.muted}">${esc(s.line)}</text>
+  <text x="32" y="232" font-size="14" font-weight="600" letter-spacing=".5" fill="${C.cyan}">View service  →</text>`;
   write(`service-${s.id}.svg`, svg(W, H, body, `${s.title}. ${s.line}`));
+}
+
+// ---------- Matriz de servicios ----------
+function matrix() {
+  const W = 1280, H = 560, L = 150, T = 50, PW = 980, PH = 430;
+  const X = (v) => L + v * PW, Y = (v) => T + (1 - v) * PH;
+  const order = ['assess', 'architect', 'govern', 'scale'];
+  const svcs = [...P.services].sort((a, b) => order.indexOf(a.phase) - order.indexOf(b.phase) || a.map.x - b.map.x);
+  const path = svcs.map((s, i) => `${i ? 'L' : 'M'}${X(s.map.x).toFixed(0)} ${Y(s.map.y).toFixed(0)}`).join('');
+  const grid = [1, 2, 3].map((i) => `<line x1="${L + (PW * i) / 4}" y1="${T}" x2="${L + (PW * i) / 4}" y2="${T + PH}" stroke="${C.line}" stroke-dasharray="2 6"/>`
+    + `<line x1="${L}" y1="${T + (PH * i) / 4}" x2="${L + PW}" y2="${T + (PH * i) / 4}" stroke="${C.line}" stroke-dasharray="2 6"/>`).join('');
+  const quads = [['STRATEGY · ASSESS', L + 14, T + PH - 14, 'start'], ['DELIVERY · ASSESS', L + PW - 14, T + PH - 14, 'end'], ['STRATEGY · SCALE', L + 14, T + 24, 'start'], ['DELIVERY · SCALE', L + PW - 14, T + 24, 'end']]
+    .map(([t, x, y, a]) => `<text x="${x}" y="${y}" text-anchor="${a}" class="m" font-size="11" letter-spacing="2" fill="${C.slate}">${t}</text>`).join('');
+  const ticks = order.map((k, i) => `<text x="${L - 18}" y="${Y((i + 0.5) / 4) + 4}" text-anchor="end" class="m" font-size="12" letter-spacing="1.5" fill="${C.muted}">${P.phases[k].n} ${P.phases[k].en.toUpperCase()}</text>`).join('');
+  const pts = svcs.map((s, i) => {
+    const x = X(s.map.x), y = Y(s.map.y), b = (0.6 + i * 0.45).toFixed(2);
+    const right = s.map.x < 0.72, tx = right ? x + 18 : x - 18, anchor = right ? 'start' : 'end';
+    return `<g opacity="0"><animate attributeName="opacity" from="0" to="1" begin="${b}s" dur=".5s" fill="freeze"/>
+      <circle cx="${x}" cy="${y}" r="22" fill="${C.cyan}" opacity="0"><animate attributeName="r" values="8;26" dur="2.8s" begin="${b}s" repeatCount="indefinite"/><animate attributeName="opacity" values=".45;0" dur="2.8s" begin="${b}s" repeatCount="indefinite"/></circle>
+      <circle cx="${x}" cy="${y}" r="${s.agent ? 9 : 7}" fill="${s.agent ? C.cyan : C.navy}" stroke="${C.cyan}" stroke-width="2"/>
+      <text x="${tx}" y="${y - 2}" text-anchor="${anchor}" font-size="17" font-weight="600" fill="${C.white}">${esc(s.title)}</text>
+      <text x="${tx}" y="${y + 17}" text-anchor="${anchor}" class="m" font-size="11" letter-spacing="1.2" fill="${C.cyan}">${P.phases[s.phase].n} · ${P.phases[s.phase].en.toUpperCase()}${s.agent ? ' · ◇ AGENTS' : ''}</text></g>`;
+  }).join('');
+  const body = `
+  <defs><linearGradient id="mbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${C.ink}"/><stop offset="1" stop-color="${C.navy}"/></linearGradient>
+  <marker id="ma" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0L10 5L0 10z" fill="${C.slate}"/></marker></defs>
+  <rect width="${W}" height="${H}" rx="18" fill="url(#mbg)"/>
+  <rect x="${L}" y="${T}" width="${PW}" height="${PH}" fill="none" stroke="${C.line}"/>
+  ${grid}${ticks}
+  <line x1="${L}" y1="${T + PH + 30}" x2="${L + PW}" y2="${T + PH + 30}" stroke="${C.slate}" stroke-width="1.2" marker-end="url(#ma)"/>
+  <text x="${L}" y="${T + PH + 52}" class="m" font-size="12" letter-spacing="2" fill="${C.muted}">STRATEGY</text>
+  <text x="${L + PW}" y="${T + PH + 52}" text-anchor="end" class="m" font-size="12" letter-spacing="2" fill="${C.muted}">DELIVERY</text>
+  <path d="${path}" fill="none" stroke="${C.cyan}" stroke-width="1.6" stroke-dasharray="6 8" opacity=".55" pathLength="1000" stroke-dashoffset="1000">
+    <animate attributeName="stroke-dashoffset" from="1000" to="0" begin=".4s" dur="3.4s" fill="freeze"/></path>
+  ${pts}
+  <g transform="translate(${L + PW - 210} ${T + PH + 76})"><circle cx="6" cy="-4" r="6" fill="${C.cyan}"/><text x="18" y="0" class="m" font-size="11" fill="${C.muted}">AGENT-POWERED</text>
+  <circle cx="140" cy="-4" r="5" fill="${C.navy}" stroke="${C.cyan}" stroke-width="2"/><text x="152" y="0" class="m" font-size="11" fill="${C.muted}">EXPERT</text></g>`;
+  write('services-map.svg', svg(W, H + 30, body, 'Services map: ' + svcs.map((s) => `${s.title} (${P.phases[s.phase].en})`).join(', ')));
 }
 
 // ---------- Insignias sociales (propias, en la paleta) ----------
@@ -167,6 +244,8 @@ ${P.about}
 
 Freelance services, each tied to one phase of the cycle: **Assess → Architect → Govern → Scale**. Pricing is tailored to scope.
 
+<img src="assets/services-map.svg" width="100%" alt="Services map: where each service sits between strategy and delivery, and across the Assess, Architect, Govern and Scale phases"/>
+
 ${rows.join('\n\n')}
 
 <p align="center">
@@ -189,5 +268,6 @@ section('services', '03', 'Services');
 section('contact', '04', 'Contact');
 focus();
 P.services.forEach(card);
+matrix();
 readme();
 console.log('OK: README.md y assets/*.svg generados');
