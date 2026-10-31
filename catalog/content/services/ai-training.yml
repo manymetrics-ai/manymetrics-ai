@@ -11,7 +11,7 @@ es:
   problem: >-
     Has comprado licencias de herramientas de IA, pero el uso es bajo y cada persona las usa a
     su manera, sin criterio común.
-  for_whom: [Dirección general y de negocio, Tecnología, datos e innovación (CIO, CDO, CAIO), Consultoría y transformación, Arquitectura de IA, datos o empresa, Perfiles técnicos de ingeniería e implantación]
+  for_whom: ["Dirección general y de negocio", "Tecnología, datos e innovación (CIO, CDO, CAIO)", "Consultoría y transformación", "Arquitectura de IA, datos o empresa", "Perfiles técnicos de ingeniería e implantación"]
   steps:
     - title: Diagnóstico
       text: Vemos el punto de partida del grupo y qué tienen que saber hacer al terminar.
@@ -34,7 +34,7 @@ en:
   problem: >-
     You bought AI tool licenses, but usage is low and everyone uses them their own way, with no
     shared criteria.
-  for_whom: [General and business management, Technology, data and innovation (CIO, CDO, CAIO), Consulting and transformation, AI, data or enterprise architecture, Technical engineering and delivery profiles]
+  for_whom: ["General and business management", "Technology, data and innovation (CIO, CDO, CAIO)", "Consulting and transformation", "AI, data or enterprise architecture", "Technical engineering and delivery profiles"]
   steps:
     - title: Diagnosis
       text: We look at where the group starts and what they need to be able to do at the end.

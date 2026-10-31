@@ -5,7 +5,7 @@ agent: true
 demo: ai-architecture-design
 
 es:
-  tools: [Agentes de IA, Diagramas C4, Cloud (Azure, AWS, GCP), RAG y LLM]
+  tools: [Agentes de IA, Diagramas C4, "Cloud (Azure, AWS, GCP)", RAG y LLM]
   title: Diseño de arquitectura de IA
   tagline: Una arquitectura, incluidos sistemas agénticos, que se puede construir, operar y auditar.
   problem: >-
@@ -31,7 +31,7 @@ es:
     final y su justificación las tomamos personas.
 
 en:
-  tools: [AI agents, C4 diagrams, Cloud (Azure, AWS, GCP), RAG and LLMs]
+  tools: [AI agents, C4 diagrams, "Cloud (Azure, AWS, GCP)", RAG and LLMs]
   title: AI architecture design
   tagline: An architecture, agentic systems included, that you can build, run and audit.
   problem: >-
