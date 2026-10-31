@@ -128,10 +128,11 @@ function card(s) {
 // ---------- Insignias sociales (propias, en la paleta) ----------
 const ICONS = JSON.parse(fs.readFileSync(path.join(dir, 'icons.json'), 'utf8'));
 ICONS.email = 'M2 5h20v14H2zM2 5l10 8 10-8';
+ICONS.linkedin = 'M3 3h18v18H3zM7 10v7M7 7v.01M11 17v-7M11 13a3 3 0 0 1 6 0v4';
 ICONS.catalog = 'M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM13 13h8v8h-8z';
 function badge(id, label) {
   const H = 40, w = Math.round(label.length * 9.6) + 66;
-  const stroke = id === 'email' || id === 'catalog';
+  const stroke = ['email', 'catalog', 'linkedin'].includes(id);
   const icon = `<g transform="translate(16 11) scale(.75)"><path d="${ICONS[id]}" ${stroke ? `fill="none" stroke="${C.cyan}" stroke-width="2" stroke-linejoin="round"` : `fill="${C.cyan}"`}/></g>`;
   const body = `<rect x=".75" y=".75" width="${w - 1.5}" height="${H - 1.5}" rx="8" fill="${C.navy}" stroke="${C.line}" stroke-width="1.5"/>${icon}
   <text x="46" y="25.5" class="m" font-size="13" font-weight="500" letter-spacing="1.6" fill="${C.white}">${esc(label.toUpperCase())}</text>`;

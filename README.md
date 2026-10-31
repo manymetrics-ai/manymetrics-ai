@@ -2,6 +2,8 @@
 <a href="https://manymetrics-ai.github.io/manymetrics-ai/"><img src="assets/hero.svg" width="100%" alt="Giancarlo Peralta Cruzatt. AI Strategist · Enterprise Data Architect"/></a>
 
 <p align="center">
+  <a href="https://www.linkedin.com/company/manymetrics/"><img src="assets/badge-linkedin.svg" height="40" alt="LinkedIn"/></a>
+  <a href="https://www.credly.com/users/giancarlo-peralta-cruzatt"><img src="assets/badge-credly.svg" height="40" alt="Credly"/></a>
   <a href="https://www.instagram.com/manymetrics_/"><img src="assets/badge-instagram.svg" height="40" alt="Instagram"/></a>
   <a href="https://www.youtube.com/@manymetrics"><img src="assets/badge-youtube.svg" height="40" alt="YouTube"/></a>
   <a href="mailto:giancarlo@manymetrics.ai"><img src="assets/badge-email.svg" height="40" alt="Email"/></a>

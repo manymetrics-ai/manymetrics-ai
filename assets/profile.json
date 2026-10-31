@@ -9,10 +9,31 @@
   "email": "giancarlo@manymetrics.ai",
   "about": "AI Strategy consultant and Enterprise Data Architect with ~11 years of experience designing and scaling data and AI ecosystems across regulated industries. Focused on aligning AI, data, and business strategy through governed, scalable, and enterprise-ready architectures.",
   "social": [
-    { "label": "Credly", "logo": "credly", "url": "TODO" },
-    { "label": "Instagram", "logo": "instagram", "url": "https://www.instagram.com/manymetrics_/" },
-    { "label": "TikTok", "logo": "tiktok", "url": "TODO" },
-    { "label": "YouTube", "logo": "youtube", "url": "https://www.youtube.com/@manymetrics" }
+    {
+      "label": "LinkedIn",
+      "logo": "linkedin",
+      "url": "https://www.linkedin.com/company/manymetrics/"
+    },
+    {
+      "label": "Credly",
+      "logo": "credly",
+      "url": "https://www.credly.com/users/giancarlo-peralta-cruzatt"
+    },
+    {
+      "label": "Instagram",
+      "logo": "instagram",
+      "url": "https://www.instagram.com/manymetrics_/"
+    },
+    {
+      "label": "TikTok",
+      "logo": "tiktok",
+      "url": "TODO"
+    },
+    {
+      "label": "YouTube",
+      "logo": "youtube",
+      "url": "https://www.youtube.com/@manymetrics"
+    }
   ],
   "focus": [
     "AI Strategy & Operating Models",
@@ -20,17 +41,65 @@
     "TODO: resto de Focus Areas de tu README actual"
   ],
   "phases": {
-    "assess": { "n": "01", "en": "Assess" },
-    "architect": { "n": "02", "en": "Architect" },
-    "govern": { "n": "03", "en": "Govern" },
-    "scale": { "n": "04", "en": "Scale" }
+    "assess": {
+      "n": "01",
+      "en": "Assess"
+    },
+    "architect": {
+      "n": "02",
+      "en": "Architect"
+    },
+    "govern": {
+      "n": "03",
+      "en": "Govern"
+    },
+    "scale": {
+      "n": "04",
+      "en": "Scale"
+    }
   },
   "services": [
-    { "id": "ai-maturity-assessment", "phase": "assess", "agent": true, "title": "AI maturity assessment", "line": "Where you stand today and what to do first." },
-    { "id": "ai-architecture", "phase": "architect", "agent": true, "title": "AI architecture design", "line": "An architecture you can build, run and audit." },
-    { "id": "ai-governance", "phase": "govern", "agent": false, "title": "AI governance", "line": "Inventory, risk classification and EU AI Act controls." },
-    { "id": "custom-dashboards", "phase": "scale", "agent": false, "title": "Custom dashboards", "line": "The metrics you decide with, on one screen." },
-    { "id": "web-apps", "phase": "scale", "agent": false, "title": "Web applications", "line": "Internal tools and AI apps your team actually uses." },
-    { "id": "ai-training", "phase": "scale", "agent": false, "title": "AI transformation training", "line": "Executive, Professional and Technical tracks." }
+    {
+      "id": "ai-maturity-assessment",
+      "phase": "assess",
+      "agent": true,
+      "title": "AI maturity assessment",
+      "line": "Where you stand today and what to do first."
+    },
+    {
+      "id": "ai-architecture",
+      "phase": "architect",
+      "agent": true,
+      "title": "AI architecture design",
+      "line": "An architecture you can build, run and audit."
+    },
+    {
+      "id": "ai-governance",
+      "phase": "govern",
+      "agent": false,
+      "title": "AI governance",
+      "line": "Inventory, risk classification and EU AI Act controls."
+    },
+    {
+      "id": "custom-dashboards",
+      "phase": "scale",
+      "agent": false,
+      "title": "Custom dashboards",
+      "line": "The metrics you decide with, on one screen."
+    },
+    {
+      "id": "web-apps",
+      "phase": "scale",
+      "agent": false,
+      "title": "Web applications",
+      "line": "Internal tools and AI apps your team actually uses."
+    },
+    {
+      "id": "ai-training",
+      "phase": "scale",
+      "agent": false,
+      "title": "AI transformation training",
+      "line": "Executive, Professional and Technical tracks."
+    }
   ]
 }
