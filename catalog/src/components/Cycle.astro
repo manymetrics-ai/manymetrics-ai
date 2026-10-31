@@ -1,27 +1,27 @@
 ---
-// Diagrama del ciclo de la portada: Evaluar, Diseñar, Gobernar, Escalar.
+// Diagrama del ciclo: Formar, Descubrir, Priorizar, Gobernar, Implantar (el mismo de la web de metricex).
 // Cada nodo enlaza a su fase en la lista de servicios.
 import { phases, type Lang } from '../lib/site';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 
-const C = 260, R = 150, NR = 38, GAP = 21;
-const order = ['assess', 'architect', 'govern', 'scale'] as const;
-const ang = [-90, 0, 90, 180];
+const C = 260, R = 150, NR = 34;
+const order = Object.keys(phases) as (keyof typeof phases)[];
+const STEP = 360 / order.length, GAP = 16;
+const ang = order.map((_, i) => -90 + i * STEP);
 const pt = (deg: number, r = R) => {
   const a = (deg * Math.PI) / 180;
   return [C + r * Math.cos(a), C + r * Math.sin(a)].map((v) => +v.toFixed(2));
 };
 const arcs = ang.map((a) => {
-  const [x1, y1] = pt(a + GAP), [x2, y2] = pt(a + 90 - GAP);
+  const [x1, y1] = pt(a + GAP), [x2, y2] = pt(a + STEP - GAP);
   return `M${x1} ${y1} A${R} ${R} 0 0 1 ${x2} ${y2}`;
 });
-const labelPos = [
-  { x: C, y: C - R - NR - 18, anchor: 'middle' },
-  { x: C + R + NR + 14, y: C + 5, anchor: 'start' },
-  { x: C, y: C + R + NR + 30, anchor: 'middle' },
-  { x: C - R - NR - 14, y: C + 5, anchor: 'end' },
-];
+const labelPos = ang.map((a) => {
+  const c = Math.cos((a * Math.PI) / 180), s = Math.sin((a * Math.PI) / 180);
+  const [x, y] = pt(a, R + NR + 16);
+  return { x, y: y + (s < -0.9 ? -4 : s > 0.3 ? 16 : 5), anchor: c > 0.3 ? 'start' : c < -0.3 ? 'end' : 'middle' };
+});
 const center = lang === 'es' ? ['Transformación', 'con IA'] : ['AI', 'Transformation'];
 ---
 <svg class="cycle" viewBox="0 0 520 520" role="img" aria-labelledby="cycle-title">

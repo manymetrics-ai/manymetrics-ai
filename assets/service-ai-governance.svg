@@ -8,7 +8,7 @@ text{font-family:G,'Segoe UI',Helvetica,Arial,sans-serif}.m{font-family:GM,ui-mo
   <rect x=".75" y=".75" width="618.5" height="248.5" rx="16" fill="url(#cg)" stroke="#1E4254" stroke-width="1.5"/>
   <rect x="424" y="18" width="178" height="118" rx="10" fill="url(#cgrid)" opacity=".8"/>
   <path d="M1 60V17A16 16 0 0 1 17 1H70" fill="none" stroke="#00C1B2" stroke-width="2"/>
-  <text x="32" y="50" class="m" font-size="13" letter-spacing="2" fill="#00C1B2">03 · GOVERN</text>
+  <text x="32" y="50" class="m" font-size="13" letter-spacing="2" fill="#00C1B2">04 · GOVERN</text>
   
   <g transform="translate(438 28)"><path d="M75 4L132 22V50C132 74 106 90 75 96C44 90 18 74 18 50V22Z" fill="none" stroke="#1E4254" stroke-width="1"/><path d="M75 4L132 22V50C132 74 106 90 75 96C44 90 18 74 18 50V22Z" fill="none" stroke="#00C1B2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="420" stroke-dashoffset="420" >
     <animate attributeName="stroke-dashoffset" values="420;0;0;420" keyTimes="0;.35;.85;1" dur="7s" begin="0s" repeatCount="indefinite"/></path><path d="M50 50L68 66L102 34" fill="none" stroke="#00C1B2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="420" stroke-dashoffset="420" >

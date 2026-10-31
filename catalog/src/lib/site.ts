@@ -14,10 +14,11 @@ export const demoUrl = (lang: Lang, id: string) => url(`/${lang}/demo/${id}/`);
 export const homeUrl = (lang: Lang) => url(`/${lang}/`);
 
 export const phases = {
-  assess: { es: 'Evaluar', en: 'Assess', n: '01' },
-  architect: { es: 'Diseñar', en: 'Architect', n: '02' },
-  govern: { es: 'Gobernar', en: 'Govern', n: '03' },
-  scale: { es: 'Escalar', en: 'Scale', n: '04' },
+  train: { es: 'Formar', en: 'Train', n: '01' },
+  discover: { es: 'Descubrir', en: 'Discover', n: '02' },
+  prioritize: { es: 'Priorizar', en: 'Prioritize', n: '03' },
+  govern: { es: 'Gobernar', en: 'Govern', n: '04' },
+  implement: { es: 'Implantar', en: 'Implement', n: '05' },
 } as const;
 
 export const ui = {

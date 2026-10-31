@@ -1,5 +1,5 @@
 {
-  "_nota": "Datos del README del perfil. Edita aquí y ejecuta: node assets/build.mjs. Los campos con TODO esperan un dato tuyo. En services, map.x va de 0 (estrategia) a 1 (implantación) y map.y de 0 (evaluar) a 1 (escalar).",
+  "_nota": "Datos del README del perfil. Edita aquí y ejecuta: node assets/build.mjs. Los campos con TODO esperan un dato tuyo. En services, map.x va de 0 (estrategia) a 1 (implantación) y map.y de 0 (Formar) a 1 (Implantar), en franjas de 0,2 por etapa.",
   "name": "Giancarlo Peralta Cruzatt",
   "kicker": "ENTERPRISE AI TRANSFORMATION",
   "title": "AI Strategist · Enterprise Data Architect",
@@ -41,47 +41,63 @@
     "TODO: resto de Focus Areas de tu README actual"
   ],
   "phases": {
-    "assess": {
+    "train": {
       "n": "01",
-      "en": "Assess"
+      "en": "Train"
     },
-    "architect": {
+    "discover": {
       "n": "02",
-      "en": "Architect"
+      "en": "Discover"
+    },
+    "prioritize": {
+      "n": "03",
+      "en": "Prioritize"
     },
     "govern": {
-      "n": "03",
+      "n": "04",
       "en": "Govern"
     },
-    "scale": {
-      "n": "04",
-      "en": "Scale"
+    "implement": {
+      "n": "05",
+      "en": "Implement"
     }
   },
   "services": [
     {
+      "id": "ai-training",
+      "phase": "train",
+      "agent": false,
+      "title": "metricex training",
+      "line": "Executive 16 h, Professional 40 h and Technical programs.",
+      "map": {
+        "x": 0.4,
+        "y": 0.1
+      },
+      "icon": "training"
+    },
+    {
       "id": "ai-maturity-assessment",
-      "phase": "assess",
+      "phase": "discover",
       "agent": true,
       "title": "AI maturity assessment",
-      "line": "Where you stand today and what to do first.",
+      "line": "Where you stand, which use cases are real, what to do first.",
       "map": {
-        "x": 0.18,
-        "y": 0.14
+        "x": 0.16,
+        "y": 0.3
       },
       "icon": "assess"
     },
     {
-      "id": "ai-architecture",
-      "phase": "architect",
-      "agent": true,
-      "title": "AI architecture design",
-      "line": "An architecture you can build, run and audit.",
+      "id": "ai-portfolio-prioritization",
+      "phase": "prioritize",
+      "agent": false,
+      "title": "AI portfolio prioritization",
+      "line": "Rank AI initiatives by value and feasibility.",
       "map": {
-        "x": 0.46,
-        "y": 0.4
+        "x": 0.3,
+        "y": 0.5
       },
-      "icon": "architect"
+      "icon": "prioritize"
     },
     {
       "id": "ai-governance",
@@ -90,46 +106,46 @@
       "title": "AI governance",
       "line": "Inventory, risk classification and EU AI Act controls.",
       "map": {
-        "x": 0.3,
-        "y": 0.66
+        "x": 0.48,
+        "y": 0.7
       },
       "icon": "govern"
     },
     {
+      "id": "ai-architecture",
+      "phase": "implement",
+      "agent": true,
+      "title": "AI architecture design",
+      "line": "Architecture and agentic systems you can build, run and audit.",
+      "map": {
+        "x": 0.44,
+        "y": 0.93
+      },
+      "icon": "architect"
+    },
+    {
       "id": "custom-dashboards",
-      "phase": "scale",
+      "phase": "implement",
       "agent": false,
       "title": "Custom dashboards",
       "line": "The metrics you decide with, on one screen.",
       "map": {
-        "x": 0.7,
-        "y": 0.8
+        "x": 0.74,
+        "y": 0.85
       },
       "icon": "dashboards"
     },
     {
       "id": "web-apps",
-      "phase": "scale",
+      "phase": "implement",
       "agent": false,
       "title": "Web applications",
       "line": "Internal tools and AI apps your team actually uses.",
       "map": {
-        "x": 0.93,
+        "x": 0.94,
         "y": 0.93
       },
       "icon": "apps"
-    },
-    {
-      "id": "ai-training",
-      "phase": "scale",
-      "agent": false,
-      "title": "AI transformation training",
-      "line": "Executive, Professional and Technical tracks.",
-      "map": {
-        "x": 0.36,
-        "y": 0.88
-      },
-      "icon": "training"
     }
   ]
 }

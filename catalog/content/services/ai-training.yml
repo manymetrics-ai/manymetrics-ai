@@ -1,51 +1,51 @@
 # Ficha de servicio. Edítala a mano cuando quieras.
-order: 6
-phase: scale
+order: 1
+phase: train
 agent: false
 demo:
 
 es:
-  tools: [Programa Executive, Programa Professional, Programa Technical]
-  title: Formación en transformación con IA
-  tagline: Que los equipos sepan usar, diseñar y gobernar la IA en su trabajo.
+  tools: [Programa Ejecutivo 16 h, Programa Profesional 40 h, Programa Técnico, Español e inglés]
+  title: Formación metricex
+  tagline: Programas para quienes deciden, ejecutan y construyen con IA. Individual o in-company.
   problem: >-
     Has comprado licencias de herramientas de IA, pero el uso es bajo y cada persona las usa a
     su manera, sin criterio común.
-  for_whom: [Comités de dirección, Mandos y consultores, Perfiles técnicos]
+  for_whom: [Dirección general y de negocio, Tecnología, datos e innovación (CIO, CDO, CAIO), Consultoría y transformación, Arquitectura de IA, datos o empresa, Perfiles técnicos de ingeniería e implantación]
   steps:
     - title: Diagnóstico
       text: Vemos el punto de partida del grupo y qué tienen que saber hacer al terminar.
     - title: Programa
-      text: Adapto el itinerario Executive, Professional o Technical a tu sector y tus casos.
+      text: Elegimos el programa por rol y lo adapto a tu sector. Ejecutivo (16 h, 5 módulos), Profesional (40 h, 6 módulos) o Técnico (4 módulos, duración por confirmar).
     - title: Sesiones
       text: Formación práctica con ejercicios sobre problemas reales de tu organización.
     - title: Seguimiento
       text: Revisión posterior de lo aplicado y siguientes pasos.
   deliverables:
-    - Programa formativo adaptado
+    - Programa metricex por rol, individual o in-company
     - Materiales y ejercicios
     - Informe de cierre con recomendaciones
   agent_note: ''
 
 en:
-  tools: [Executive track, Professional track, Technical track]
-  title: AI transformation training
-  tagline: Teams that know how to use, design and govern AI in their work.
+  tools: [Executive program 16 h, Professional program 40 h, Technical program, Spanish and English]
+  title: metricex training
+  tagline: Programs for people who decide, deliver and build with AI. Individual or in-company.
   problem: >-
     You bought AI tool licenses, but usage is low and everyone uses them their own way, with no
     shared criteria.
-  for_whom: [Leadership teams, Managers and consultants, Technical profiles]
+  for_whom: [General and business management, Technology, data and innovation (CIO, CDO, CAIO), Consulting and transformation, AI, data or enterprise architecture, Technical engineering and delivery profiles]
   steps:
     - title: Diagnosis
       text: We look at where the group starts and what they need to be able to do at the end.
     - title: Program
-      text: I adapt the Executive, Professional or Technical track to your sector and cases.
+      text: We pick the program by role and I adapt it to your sector. Executive (16 h, 5 modules), Professional (40 h, 6 modules) or Technical (4 modules, duration to be confirmed).
     - title: Sessions
       text: Hands-on training with exercises on real problems from your organization.
     - title: Follow-up
       text: A later review of what was applied and next steps.
   deliverables:
-    - Tailored training program
+    - metricex program by role, individual or in-company
     - Materials and exercises
     - Closing report with recommendations
   agent_note: ''

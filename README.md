@@ -20,23 +20,28 @@ AI Strategy consultant and Enterprise Data Architect with ~11 years of experienc
 
 <img src="assets/section-services.svg" width="100%" alt="Services"/>
 
-Freelance services, each tied to one phase of the cycle: **Assess → Architect → Govern → Scale**. Pricing is tailored to scope.
+Seven services along one cycle: **Train → Discover → Prioritize → Govern → Implement**. Many organizations start by training their teams with **metricex**, my training service; when it is time to prioritize, govern and implement, the consulting services take over. Pricing is tailored to scope.
 
-<img src="assets/services-map.svg" width="100%" alt="Services map: where each service sits between strategy and delivery, and across the Assess, Architect, Govern and Scale phases"/>
+<img src="assets/services-map.svg" width="100%" alt="Services map: where each service sits between strategy and delivery, and across the Train, Discover, Prioritize, Govern and Implement stages"/>
 
 <p>
+  <a href="https://manymetrics-ai.github.io/manymetrics-ai/en/services/ai-training/"><img src="assets/service-ai-training.svg" width="49%" alt="metricex training"/></a>
   <a href="https://manymetrics-ai.github.io/manymetrics-ai/en/services/ai-maturity-assessment/"><img src="assets/service-ai-maturity-assessment.svg" width="49%" alt="AI maturity assessment"/></a>
-  <a href="https://manymetrics-ai.github.io/manymetrics-ai/en/services/ai-architecture/"><img src="assets/service-ai-architecture.svg" width="49%" alt="AI architecture design"/></a>
 </p>
 
 <p>
+  <a href="https://manymetrics-ai.github.io/manymetrics-ai/en/services/ai-portfolio-prioritization/"><img src="assets/service-ai-portfolio-prioritization.svg" width="49%" alt="AI portfolio prioritization"/></a>
   <a href="https://manymetrics-ai.github.io/manymetrics-ai/en/services/ai-governance/"><img src="assets/service-ai-governance.svg" width="49%" alt="AI governance"/></a>
+</p>
+
+<p>
+  <a href="https://manymetrics-ai.github.io/manymetrics-ai/en/services/ai-architecture/"><img src="assets/service-ai-architecture.svg" width="49%" alt="AI architecture design"/></a>
   <a href="https://manymetrics-ai.github.io/manymetrics-ai/en/services/custom-dashboards/"><img src="assets/service-custom-dashboards.svg" width="49%" alt="Custom dashboards"/></a>
 </p>
 
 <p>
   <a href="https://manymetrics-ai.github.io/manymetrics-ai/en/services/web-apps/"><img src="assets/service-web-apps.svg" width="49%" alt="Web applications"/></a>
-  <a href="https://manymetrics-ai.github.io/manymetrics-ai/en/services/ai-training/"><img src="assets/service-ai-training.svg" width="49%" alt="AI transformation training"/></a>
+  
 </p>
 
 <p align="center">

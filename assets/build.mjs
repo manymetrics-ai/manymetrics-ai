@@ -24,25 +24,28 @@ const diamond = (x, y, s = 5, fill = 'none') => `<path d="M${x} ${y - s}L${x + s
 function hero() {
   const W = 1280, H = 440;
   const cx = 1010, cy = 220, R = 118;
-  const nodes = [['assess', -90], ['architect', 0], ['govern', 90], ['scale', 180]];
+  const keys = Object.keys(P.phases), step = 360 / keys.length;
+  const nodes = keys.map((k, i) => [k, -90 + i * step]);
   const pt = (a, r = R) => [cx + r * Math.cos((a * Math.PI) / 180), cy + r * Math.sin((a * Math.PI) / 180)];
   // red de puntos de fondo (simula un grafo de agentes)
   const seed = [[700, 70], [780, 140], [860, 60], [1180, 80], [1230, 170], [1200, 330], [1120, 395], [860, 390], [760, 330], [690, 230]];
   const links = [[0, 1], [1, 2], [3, 4], [4, 5], [5, 6], [7, 8], [8, 9], [9, 0], [2, 3], [6, 7]];
   const net = links.map(([a, b]) => `<line x1="${seed[a][0]}" y1="${seed[a][1]}" x2="${seed[b][0]}" y2="${seed[b][1]}" stroke="${C.line}" stroke-width="1"/>`).join('')
     + seed.map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="3" fill="${i % 3 ? C.slate : C.cyan}" opacity="${i % 3 ? 0.7 : 0.9}"/>`).join('');
+  const gap = 17;
   const arcs = nodes.map(([, a]) => {
-    const [x1, y1] = pt(a + 22), [x2, y2] = pt(a + 68);
+    const [x1, y1] = pt(a + gap), [x2, y2] = pt(a + step - gap);
     return `<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} A${R} ${R} 0 0 1 ${x2.toFixed(1)} ${y2.toFixed(1)}" fill="none" stroke="${C.cyan}" stroke-width="1.6" marker-end="url(#ar)"/>`;
   }).join('');
-  const labels = nodes.map(([k, a], i) => {
+  const labels = nodes.map(([k, a]) => {
     const [x, y] = pt(a);
-    const [lx, ly] = pt(a, R + 52);
-    const anchor = a === 0 ? 'start' : a === 180 ? 'end' : 'middle';
-    const dx = a === 0 ? -26 : a === 180 ? 26 : 0;
-    return `<circle cx="${x}" cy="${y}" r="24" fill="${C.navy}" stroke="${C.cyan}" stroke-width="1.4"/>
-      <text x="${x}" y="${y + 5}" text-anchor="middle" class="m" font-size="14" fill="${C.cyan}">${P.phases[k].n}</text>
-      <text x="${lx + dx}" y="${ly + 5}" text-anchor="${anchor}" font-size="13" font-weight="600" letter-spacing="3" fill="${C.white}">${P.phases[k].en.toUpperCase()}</text>`;
+    const c = Math.cos((a * Math.PI) / 180), sn = Math.sin((a * Math.PI) / 180);
+    const [lx, ly] = pt(a, R + 34);
+    const anchor = c > 0.3 ? 'start' : c < -0.3 ? 'end' : 'middle';
+    const dy = sn < -0.9 ? -8 : sn > 0.3 ? 14 : 5;
+    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="24" fill="${C.navy}" stroke="${C.cyan}" stroke-width="1.4"/>
+      <text x="${x.toFixed(1)}" y="${(y + 5).toFixed(1)}" text-anchor="middle" class="m" font-size="14" fill="${C.cyan}">${P.phases[k].n}</text>
+      <text x="${lx.toFixed(1)}" y="${(ly + dy).toFixed(1)}" text-anchor="${anchor}" font-size="13" font-weight="600" letter-spacing="2.4" fill="${C.white}">${P.phases[k].en.toUpperCase()}</text>`;
   }).join('');
   // Puntos de la retícula que se encienden y apagan en bucle (posiciones fijas, pseudoaleatorias)
   let seedN = 7;
@@ -142,6 +145,9 @@ const ICON = {
     + draw('M14 84V62M32 84V48M50 84V56', 0) + draw('M72 74L92 58L110 64L138 36', .2) + dot(138, 36, .32, 3.6) + `<circle cx="16" cy="16" r="3" fill="${C.cyan}"/>`,
   apps: () => ghost('M6 6H146V92H6ZM6 22H146') + `<circle cx="16" cy="14" r="2.5" fill="${C.slate}"/><circle cx="26" cy="14" r="2.5" fill="${C.slate}"/><circle cx="36" cy="14" r="2.5" fill="${C.cyan}"/>`
     + draw('M18 34H70V60H18Z') + draw('M82 34H134M82 46H122M82 58H128', .2) + draw('M18 72H134', .4) + dot(134, 72, .32),
+  prioritize: () => ghost('M8 6H146V92H8ZM77 6V92M8 49H146') + draw('M8 92L146 6', 0, 2.4, 'opacity=".35"')
+    + dot(34, 72, .08, 2.6) + dot(52, 62, .12, 2.6) + dot(40, 30, .16, 2.6) + dot(100, 70, .2, 2.6) + dot(96, 34, .24, 3.2) + dot(124, 22, .3, 4.4) + dot(112, 40, .34, 3.4)
+    + `<text x="150" y="16" text-anchor="end" class="m" font-size="8" fill="${C.cyan}">PRIORITIZE</text>`,
   training: () => ghost('M10 86H144') + draw('M14 80L50 62L84 50L118 30L142 14') + dot(14, 80, .06) + dot(50, 62, .14) + dot(84, 50, .22) + dot(118, 30, .3) + dot(142, 14, .38, 4.4)
     + `<text x="14" y="98" class="m" font-size="9" fill="${C.muted}">EXEC</text><text x="70" y="98" class="m" font-size="9" fill="${C.muted}">PRO</text><text x="118" y="98" class="m" font-size="9" fill="${C.muted}">TECH</text>`,
 };
@@ -166,16 +172,16 @@ function card(s) {
 
 // ---------- Matriz de servicios ----------
 function matrix() {
-  const W = 1280, H = 560, L = 150, T = 50, PW = 980, PH = 430;
+  const W = 1280, H = 650, L = 150, T = 50, PW = 980, PH = 520;
   const X = (v) => L + v * PW, Y = (v) => T + (1 - v) * PH;
-  const order = ['assess', 'architect', 'govern', 'scale'];
+  const order = Object.keys(P.phases), NB = order.length;
   const svcs = [...P.services].sort((a, b) => order.indexOf(a.phase) - order.indexOf(b.phase) || a.map.x - b.map.x);
   const path = svcs.map((s, i) => `${i ? 'L' : 'M'}${X(s.map.x).toFixed(0)} ${Y(s.map.y).toFixed(0)}`).join('');
-  const grid = [1, 2, 3].map((i) => `<line x1="${L + (PW * i) / 4}" y1="${T}" x2="${L + (PW * i) / 4}" y2="${T + PH}" stroke="${C.line}" stroke-dasharray="2 6"/>`
-    + `<line x1="${L}" y1="${T + (PH * i) / 4}" x2="${L + PW}" y2="${T + (PH * i) / 4}" stroke="${C.line}" stroke-dasharray="2 6"/>`).join('');
+  const grid = [1, 2, 3].map((i) => `<line x1="${L + (PW * i) / 4}" y1="${T}" x2="${L + (PW * i) / 4}" y2="${T + PH}" stroke="${C.line}" stroke-dasharray="2 6"/>`).join('')
+    + Array.from({ length: NB - 1 }, (_, j) => `<line x1="${L}" y1="${T + (PH * (j + 1)) / NB}" x2="${L + PW}" y2="${T + (PH * (j + 1)) / NB}" stroke="${C.line}" stroke-dasharray="2 6"/>`).join('');
   const quads = [['STRATEGY · ASSESS', L + 14, T + PH - 14, 'start'], ['DELIVERY · ASSESS', L + PW - 14, T + PH - 14, 'end'], ['STRATEGY · SCALE', L + 14, T + 24, 'start'], ['DELIVERY · SCALE', L + PW - 14, T + 24, 'end']]
     .map(([t, x, y, a]) => `<text x="${x}" y="${y}" text-anchor="${a}" class="m" font-size="11" letter-spacing="2" fill="${C.slate}">${t}</text>`).join('');
-  const ticks = order.map((k, i) => `<text x="${L - 18}" y="${Y((i + 0.5) / 4) + 4}" text-anchor="end" class="m" font-size="12" letter-spacing="1.5" fill="${C.muted}">${P.phases[k].n} ${P.phases[k].en.toUpperCase()}</text>`).join('');
+  const ticks = order.map((k, i) => `<text x="${L - 18}" y="${Y((i + 0.5) / NB) + 4}" text-anchor="end" class="m" font-size="12" letter-spacing="1.5" fill="${C.muted}">${P.phases[k].n} ${P.phases[k].en.toUpperCase()}</text>`).join('');
   const pts = svcs.map((s, i) => {
     const x = X(s.map.x), y = Y(s.map.y), b = (0.6 + i * 0.45).toFixed(2);
     const right = s.map.x < 0.72, tx = right ? x + 18 : x - 18, anchor = right ? 'start' : 'end';
@@ -242,9 +248,9 @@ ${P.about}
 
 <img src="assets/section-services.svg" width="100%" alt="Services"/>
 
-Freelance services, each tied to one phase of the cycle: **Assess → Architect → Govern → Scale**. Pricing is tailored to scope.
+Seven services along one cycle: **Train → Discover → Prioritize → Govern → Implement**. Many organizations start by training their teams with **metricex**, my training service; when it is time to prioritize, govern and implement, the consulting services take over. Pricing is tailored to scope.
 
-<img src="assets/services-map.svg" width="100%" alt="Services map: where each service sits between strategy and delivery, and across the Assess, Architect, Govern and Scale phases"/>
+<img src="assets/services-map.svg" width="100%" alt="Services map: where each service sits between strategy and delivery, and across the Train, Discover, Prioritize, Govern and Implement stages"/>
 
 ${rows.join('\n\n')}
 

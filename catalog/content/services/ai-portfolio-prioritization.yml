@@ -1,0 +1,53 @@
+# Ficha de servicio. Edítala a mano cuando quieras.
+order: 3
+phase: prioritize
+agent: false
+demo:
+
+es:
+  tools: [Matriz de valor y viabilidad, Ficha común de caso de uso, Hoja de cálculo o Airtable]
+  title: Priorización de la cartera de IA
+  tagline: Qué iniciativas de IA hacer primero, con un orden de inversión defendible.
+  problem: >-
+    Hay más ideas de IA que presupuesto y equipo. Cada área defiende las suyas y no existe un
+    criterio común para decidir cuáles financiar primero.
+  for_whom: [Comités de dirección y de inversión, Oficinas de transformación y PMO, CIO, CDO y CAIO]
+  steps:
+    - title: Criterios
+      text: Acordamos qué significa valor y qué significa viabilidad en tu organización, y cómo se puntúa cada uno.
+    - title: Fichas
+      text: Cada iniciativa se describe en una ficha común para poder compararlas entre sí.
+    - title: Matriz
+      text: Puntuamos las iniciativas y las situamos en la matriz de valor y viabilidad.
+    - title: Cartera
+      text: Ordenamos la inversión, separamos lo que conviene preparar o aparcar y lo presentamos al comité.
+  deliverables:
+    - Criterios de valor y viabilidad acordados
+    - Fichas comparables de cada iniciativa
+    - Matriz de priorización
+    - Cartera ordenada con la secuencia de inversión
+  agent_note: ''
+
+en:
+  tools: [Value and feasibility matrix, Common use-case template, Spreadsheet or Airtable]
+  title: AI portfolio prioritization
+  tagline: Which AI initiatives to fund first, with an investment order you can defend.
+  problem: >-
+    There are more AI ideas than budget and people. Each department pushes its own and there is
+    no shared criterion to decide which ones to fund first.
+  for_whom: [Leadership and investment committees, Transformation offices and PMOs, CIOs, CDOs and CAIOs]
+  steps:
+    - title: Criteria
+      text: We agree what value and feasibility mean in your organization and how each one is scored.
+    - title: Cards
+      text: Each initiative is described on a common card so they can be compared.
+    - title: Matrix
+      text: We score the initiatives and place them on the value and feasibility matrix.
+    - title: Portfolio
+      text: We set the investment order, separate what to prepare or park, and present it to the committee.
+  deliverables:
+    - Agreed value and feasibility criteria
+    - Comparable card for each initiative
+    - Prioritization matrix
+    - Ordered portfolio with the investment sequence
+  agent_note: ''

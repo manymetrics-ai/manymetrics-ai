@@ -1,13 +1,13 @@
 # Ficha de servicio. Edítala a mano cuando quieras.
-order: 2
-phase: architect
+order: 5
+phase: implement
 agent: true
 demo: ai-architecture-design
 
 es:
   tools: [Agentes de IA, Diagramas C4, Cloud (Azure, AWS, GCP), RAG y LLM]
   title: Diseño de arquitectura de IA
-  tagline: Una arquitectura que se puede construir, operar y auditar.
+  tagline: Una arquitectura, incluidos sistemas agénticos, que se puede construir, operar y auditar.
   problem: >-
     Tu caso de uso de IA funciona en una demo, pero no sabes cómo integrarlo con tus sistemas,
     tus datos y tus requisitos de seguridad sin rehacerlo todo.
@@ -33,7 +33,7 @@ es:
 en:
   tools: [AI agents, C4 diagrams, Cloud (Azure, AWS, GCP), RAG and LLMs]
   title: AI architecture design
-  tagline: An architecture you can build, run and audit.
+  tagline: An architecture, agentic systems included, that you can build, run and audit.
   problem: >-
     Your AI use case works in a demo, but you do not know how to connect it to your systems,
     data and security requirements without starting over.

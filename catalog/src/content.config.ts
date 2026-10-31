@@ -20,7 +20,7 @@ const services = defineCollection({
   loader: glob({ pattern: '*.{yml,yaml}', base: './content/services' }),
   schema: z.object({
     order: z.number(),
-    phase: z.enum(['assess', 'architect', 'govern', 'scale']),
+    phase: z.enum(['train', 'discover', 'prioritize', 'govern', 'implement']),
     agent: z.boolean().default(false),
     demo: z.string().nullable().optional(),
     es: serviceLang,

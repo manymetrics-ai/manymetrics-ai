@@ -1,15 +1,15 @@
 # Ficha de servicio. Edítala a mano cuando quieras.
-# order: posición en el catálogo. phase: assess | architect | govern | scale
+# order: posición en el catálogo. phase: train | discover | prioritize | govern | implement
 # demo: id de la demo en content/demos (déjalo vacío si no hay demo).
-order: 1
-phase: assess
+order: 2
+phase: discover
 agent: true
 demo: ai-maturity-report
 
 es:
   tools: [Cuestionario online, Agentes de IA, Python, Informe web y PDF]
   title: Evaluación de madurez en IA
-  tagline: Dónde está tu organización hoy y qué hacer primero.
+  tagline: Dónde está tu organización hoy, qué casos de uso son reales y qué hacer primero.
   problem: >-
     Tienes iniciativas de IA repartidas por áreas, pero nadie puede decir con datos en qué punto
     está la organización ni por dónde empezar.
@@ -26,6 +26,7 @@ es:
   deliverables:
     - Puntuación de madurez por dimensión y por área
     - Mapa de brechas con prioridades
+    - Inventario de casos de uso documentados de forma comparable
     - Hoja de ruta de 90 días con las primeras acciones
     - Informe ejecutivo para el comité de dirección
   agent_note: >-
@@ -35,7 +36,7 @@ es:
 en:
   tools: [Online questionnaire, AI agents, Python, Web and PDF report]
   title: AI maturity assessment
-  tagline: Where your organization stands today and what to do first.
+  tagline: Where your organization stands today, which use cases are real and what to do first.
   problem: >-
     You have AI initiatives scattered across departments, but nobody can say with data where the
     organization stands or where to start.
@@ -52,6 +53,7 @@ en:
   deliverables:
     - Maturity score by dimension and department
     - Gap map with priorities
+    - Use-case inventory, documented so cases can be compared
     - 90-day roadmap with the first actions
     - Executive report for the board
   agent_note: >-
